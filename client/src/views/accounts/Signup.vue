@@ -50,15 +50,16 @@ export default {
             .then((res) => {
               localStorage.setItem('jwt', res.data.token)
               this.$emit('login')
-              this.$router.push({name: 'TodoList'})
+              console.log('여기까지 들어오니')
+              this.$router.push({name: 'MyPage'})
               })
+              .catch(err => {
+              console.log(err)
+              })
+        })
         .catch(err => {
           console.log(err)
           })
-      })
-        .catch(err => {
-          console.log(err)
-        })
     }
   },
 }

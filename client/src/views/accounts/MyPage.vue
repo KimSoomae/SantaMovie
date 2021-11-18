@@ -1,0 +1,58 @@
+<template>
+  <div>
+    <h1>끌리는 영화를 선택해주세요</h1>
+    <ul>
+      <li v-for="movie in moviePicks" :key="movie.id">
+        <img @click="saveMoviePick(movie.id)" :src="movie.poster_path" alt="..">
+        <p>{{movie.title}}</p>
+      </li>
+    </ul>
+    
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'MyPage',
+  data: function(){
+    return{
+      moviePicks: 
+        {
+          title: null,
+          poster_path: null,
+        }
+      
+    }
+  },
+  methods: {
+    saveMoviePick: function(movie_id) {
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/accounts/save-movie/${movie_id}/`,
+      })
+
+    }
+  },
+  created: function () {
+    axios({
+      method : 'get',
+      url: 'http://127.0.0.1:8000/accounts/get-pick-movie/',
+    })
+    .then(res => {
+      // list로 들어옴
+      console.log(res.data)
+      this.moviePicks = res.data
+
+    })
+    .catch(err => {
+          console.log(err)
+        })
+  }
+}
+</script>
+
+<style>
+
+</style>
