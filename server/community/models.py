@@ -8,7 +8,7 @@ class Tag(models.Model):
 
 class Community(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag)
     title = models.CharField(max_length=10)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

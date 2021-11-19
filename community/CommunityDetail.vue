@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <h1>Write Form</h1>
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
+  name: 'TodoList',
+  data: function () {
+    
+  },
 
 }
 </script>

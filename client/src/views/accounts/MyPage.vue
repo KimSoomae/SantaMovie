@@ -3,7 +3,7 @@
     <h1>끌리는 영화를 선택해주세요</h1>
     <ul>
       <li v-for="movie in moviePicks" :key="movie.id">
-        <img @click="saveMoviePick(movie.id)" :src="movie.poster_path" alt="..">
+        <img style="width: 200px" @click="saveMoviePick(movie.id)" :src="movie.poster_path" alt="..">
         <p>{{movie.title}}</p>
       </li>
     </ul>

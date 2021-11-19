@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>DETAIL</h2>
+  <h3>{{ community.pk }}
+    번째 글</h3>
+  <hr>
+  <p>제목 :
+    {{ community.title }}</p>
+  <p>내용 :
+    {{  community.content }}</p>
+
+  <p>작성시각 :
+    {{  community.created_at }}</p>
+  <p>수정시각 :
+    {{  community.updated_at }}</p>
+  <hr>
+  {% if user ==  community.user %}
+  <div class="row">
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-success" onclick="location.href='{% url 'community:update' community.pk %} '">UPDATE</button>
+    </div>
+    <div class="col-sm-1">
+    <form action="{% url 'community:delete' community.pk %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">DELETE</button>
+    </form>
+    </div>
+  
+  {% endif %}
+  <div class="col-sm-1">
+     <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'community:index' %} '">BACK</button>
+  </div>
+  </div>
+  <hr>
+  <h4>댓글 목록</h4>
+  {% if comments %}
+    <p>
+      <b>{{ comments|length }}개의 댓글이 있습니다.</b>
+    </p>
+  {% endif %}
+  <ul>
+    {% for comment in comments %}
+      <li>
+        {{ comment.user }}
+        -
+        {{ comment.title }}
+        {% if user == comment.user %}
+          <form action="{% url 'community:comments_delete'  community.pk comment.pk %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            
+            <input type="submit" value="DELETE">
+          </form>
+        {% endif %}
+      </li>
+      {% empty %}
+      <p>댓글이 없어요..</p>
+    {% endfor %}
+  </ul>
+
+  <hr>
+  {% if request.user.is_authenticated %}
+    <form action="{% url 'community:comments_create'  community.pk %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form }}
+      <input type="submit">
+    </form>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+  {% endif %}
+{% endblock content %}
