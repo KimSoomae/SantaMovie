@@ -1,9 +1,12 @@
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import UserSerializer, MoviePickListSerializer
 from rest_framework.permissions import AllowAny
-
+from .models import PickMovie
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+from rest_framework import serializers, status
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -22,3 +25,18 @@ def signup(request):
         user.set_password(request.data.get('password'))
         user.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_movie_pick(request):
+    if request.method == 'GET':
+        moviepicks = PickMovie.objects.all()
+        print(moviepicks)
+        serializer = MoviePickListSerializer(moviepicks, many=True)
+        return Response(serializer.data)
+
+# @api_view(['POST'])
+# def save_movie(request):
+#     if request.method == 'POST':
+#         serializer = UserSerializer(request.user)
+#         user.moviepicks += 

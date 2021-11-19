@@ -1,4 +1,4 @@
-#!/Users/gojaehyeon/Desktop/vue_08_workshop/server/venv/bin/python3
+#!/Users/kimsoomin/Desktop/pjt_final/server/venv/bin/python3.9
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

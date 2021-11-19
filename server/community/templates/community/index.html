@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 style="display:inline-block;">Community</h1>
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'community:create' %}">[CREATE]</a>
+  {% endif %}
+  <hr>
+  
+  {% for community in communities %}
+    <p>글 번호 :
+      {{ community.pk }}</p>
+    <p>작성자 :
+      <a href="">{{ community.user }}</a>
+    </p>
+    <p>제목: 
+    <a href="{% url 'community:detail' community.pk %}">{{community.title}}</a>
+    </p>
+    
+    <hr>
+  {% endfor %}
+{% endblock content %}

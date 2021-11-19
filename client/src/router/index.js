@@ -4,7 +4,7 @@ import Home from '../views/movies/Home.vue'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
 import MovieDetail from '@/views/movies/MovieDetail'
-
+import MyPage from '@/views/accounts/MyPage'
 
 Vue.use(VueRouter)
 
@@ -31,6 +31,12 @@ const routes = [
     name: 'Login',
     component: Login,
   },
+  {
+    path: '/accounts/mypage',
+    name: 'MyPage',
+    component: MyPage,
+  },
+  
 ]
 
 const router = new VueRouter({
