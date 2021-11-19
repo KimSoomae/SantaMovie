@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <span v-if="isLogin">
+        <router-link to="/">Home</router-link> |
         <router-link @click.native="logout" to="#">Logout</router-link> 
       </span>
       <span v-else>
