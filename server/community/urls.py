@@ -6,8 +6,10 @@ app_name = 'community'
 
 urlpatterns = [
     path('', views.community_list_create),
+    path('<search>/', views.community_search),
     path('api-token-auth/', obtain_jwt_token),
     path('<int:community_pk>/', views.community_update_delete),
     path('<int:community_pk>/comments/', views.comment_list_create),
     path('comment/<int:comment_pk>/', views.comment_update_delete),   
+    
 ]

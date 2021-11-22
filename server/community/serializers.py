@@ -20,6 +20,7 @@ class CommunitySerializer(serializers.ModelSerializer):
             model = Tag
             fields = '__all__'
     tags = TagSerializer(many=True, read_only=True)
+    #tags_id = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), write_only=True,many=True)
 
     class CommentSerializer(serializers.ModelSerializer):
         class Meta:
@@ -29,7 +30,19 @@ class CommunitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Community
-        fields = ('id', 'title', 'content', 'tags','created_at','updated_at', 'comments', 'user')
+        fields = ('id', 'title', 'content', 'tags', 'created_at','updated_at', 'comments', 'user')
+
+    # def get_validation_exclusions(self, *args, **kwargs):
+    #     exclusions = super(CommunitySerializer, self).get_validation_exclusions()
+
+    #     return exclusions + ['user']
+
+    # def create(self, validated_data):
+    #     tags = validated_data.pop('tags_id')
+    #     communities = Community.objects.create(**validated_data)
+    #     for tg in tags:
+    #         communities.tags.add(tg)
+    #     return communities
 
 
 class CommentSerializer(serializers.ModelSerializer):

@@ -4,6 +4,8 @@
     <br>
     내용: <input type="text" v-model="content">
     <br>
+    태그 앞에 #을 넣어주세요
+    태그: <input type="text" v-model="tags">
     <button @click="createCommunity">Submit</button>
 
   </div>
@@ -17,6 +19,7 @@ export default {
     return {
       title: null,
       content: null,
+      tags: null,
     }
   },
   methods: {
@@ -31,7 +34,8 @@ export default {
     createCommunity: function () {
       const communityItem = {
         title: this.title,
-        content : this.content
+        content : this.content,
+        tags: this.tags,
       }
 
       if (communityItem.title) {
@@ -49,6 +53,7 @@ export default {
           })
         this.title = null
         this.content = null
+        this.tags = null
       }
     }
 }

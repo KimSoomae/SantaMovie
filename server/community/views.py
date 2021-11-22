@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Community, Comment
+from .models import Community, Comment, Tag
 from .serializers import CommunityListSerializer, CommunitySerializer, CommentSerializer
 
 
@@ -15,12 +15,32 @@ def community_list_create(request):
         serializer = CommunityListSerializer(communitys, many=True)
         return Response(serializer.data)
     else:
+        print(request.data)
+        taglist = []
+        taglist = request.data['tags'].split('#')[1:]
+        print(request.data)
+        
         serializer = CommunitySerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
+            print(serializer.data)
+            community= get_object_or_404(Community, pk =serializer.data['id'])
+
+            for i in range(len(taglist)):
+                print(type(taglist[i]))
+                if not Tag.objects.filter(name=taglist[i]).exists():
+                    Tag.objects.create(name=taglist[i])
+                tag = Tag.objects.get(name=taglist[i])
+                print(tag)
+                community.tags.add(tag)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
+@api_view(['GET'])
+def community_search(request, search):
+    tag = Tag.objects.get(name=search)
+    communities = Community.objects.filter(tags = tag)
+    serializer = CommunityListSerializer(communities, many=True)
+    print(serializer)
+    return Response(serializer.data)
 
 @api_view(['GET','PUT', 'DELETE'])
 def community_update_delete(request, community_pk):
