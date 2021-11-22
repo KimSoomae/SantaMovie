@@ -1,30 +1,25 @@
 <template>
   <div>
-    <h1>끌리는 영화를 선택해주세요</h1>
-    <ul>
-      <li v-for="movie in moviePicks" :key="movie.id">
-        <img style="width: 200px" @click="saveMoviePick(movie.id)" :src="movie.poster_path" alt="..">
-        <p>{{movie.title}}</p>
-      </li>
-    </ul>
-    
+    <h3>내이름은{{username}}</h3>
+    내가 좋아하는 영화는 {{moviePicks.title}}
   </div>
 </template>
+
 
 <script>
 import axios from 'axios'
 
 
 export default {
-  name: 'MyPage',
+  name: 'MyPageList',
   data: function(){
     return{
+      username: null,
       moviePicks: 
         {
           title: null,
           poster_path: null,
         },
-      //user: this.$session.set('user_no', res.user_no)
       
     }
   },
@@ -37,8 +32,6 @@ export default {
       return config
     },
     saveMoviePick: function(movie_id) {
-      //onsole.log(movie)
-
       axios({
         method: 'post',
         url: `http://127.0.0.1:8000/accounts/save-movie/${movie_id}/`,
@@ -50,22 +43,21 @@ export default {
       })
 
     },
-    showCommunity: function(){
-      axios({
-        method:'get',
-        url: `http://127.0.0.1:8000/community/`,
-      })
-    }
+   
   },
   created: function () {
     axios({
       method : 'get',
-      url: 'http://127.0.0.1:8000/accounts/get-pick-movie/',
+      url: 'http://127.0.0.1:8000/accounts/get-user/',
+      headers: this.setToken()
     })
     .then(res => {
       // list로 들어옴
       console.log(res.data)
-      this.moviePicks = res.data
+      this.username = res.data.username
+      this.moviePicks.title = res.data.moviepicks.title
+      this.moviePicks.poster_path = res.data.moviepicks.poster_path
+      //this.moviePicks = res.data
 
     })
     .catch(err => {

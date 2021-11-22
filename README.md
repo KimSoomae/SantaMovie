@@ -194,3 +194,26 @@
 
 ![](https://i.esdrop.com/d/eae6tqatp81y/XnDFcXOwtD.jpeg.sthumb)
 
+python dumpdata.py
+
+python manage.py loaddata movies/get_movie_data/movies.json
+
+
+
+
+
+> 상대경로시 에러
+
+"attempted relative import beyond top-level package" 에러
+
+```python
+import os
+from movies.models import Genre
+```
+
+..movies 이런식으로 상대 경로를 설정하는 것은 디버깅 설정에 따라 다를 수 있다.
+
+따라서 패키지 이름을 넣어 선언하면 다른 앱에 있는 함수나 모델들 불러올 수 있음.
+
+
+

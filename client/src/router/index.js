@@ -5,6 +5,7 @@ import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
 import MovieDetail from '@/views/movies/MovieDetail'
 import MyPage from '@/views/accounts/MyPage'
+import MyPageList from '@/views/accounts/MyPageList'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
     name: 'MyPage',
     component: MyPage,
   },
+  {
+    path: '/accounts/mypagelist',
+    name: 'MyPageList',
+    component: MyPageList,
+  }
   
 ]
 

@@ -9,16 +9,29 @@ class MoviePickListSerializer(serializers.ModelSerializer):
         model = PickMovie
         fields = ('id', 'title','poster_path')
 
+class MoviePickSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PickMovie
+        fields = ('id', 'title','poster_path')
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     class MoviePickSerializer(serializers.ModelSerializer):
         class Meta:
             model = PickMovie
-            fields = ('title', 'poster_path')
+            fields = '__all__'
 
-    moviepicks = MoviePickSerializer(many=True, read_only=True)
-
+    moviepicks = MoviePickSerializer(read_only=True, allow_null=True)
+    
     class Meta: 
         model = get_user_model()
         fields = ('username', 'password', 'moviepicks')
 
+    # def create(self, validated_data):
+    #     return get_user_model(**validated_data)
+    
+    # def update(self, instance, validated_data):
+    #     instance.moviepicks = validated_data.get('moviepicks', instance.content)
+    #     instance.save()
+    #     return instance
+    
