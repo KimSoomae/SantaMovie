@@ -7,6 +7,7 @@ from .models import PickMovie
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers, status
+from django.contrib.auth import get_user_model
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -40,3 +41,10 @@ def get_movie_pick(request):
 #     if request.method == 'POST':
 #         serializer = UserSerializer(request.user)
 #         user.moviepicks += 
+
+
+@api_view(['GET'])
+def get_user(request,user_id):
+    user = get_object_or_404(get_user_model(), pk=user_id)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)

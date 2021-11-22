@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     movies: [],
     movie: [],
-    // reviews: []
+    username: null,
   },
   mutations: {
     LOAD_MOVIE_CARDS: function(state, movies){
@@ -17,15 +17,17 @@ export default new Vuex.Store({
     LOAD_MOVIE_DETAIL: function(state,movie){
       state.movie = movie
     },
-    // CREATE_REVIEW: function(state,review){
-    //   state.reviews.push(review)
-    // }
+    GET_USER_NAME: function(state, user) {
+      state.username = user
+    }
+    
   },
   actions: {
-    LoadMovieCards: function({commit}) {
+    LoadMovieCards: function({commit},token) {
       axios({
         method:'get',
         url: 'http://127.0.0.1:8000/movies/movies',
+        headers: token
       })
         .then((res) => {
           //console.log(res)
@@ -33,10 +35,11 @@ export default new Vuex.Store({
         })
 
     },
-    LoadMovieDetail: function({commit},movieId) {
+    LoadMovieDetail: function({commit},content) {
       axios({
         method:'get',
-        url: `http://127.0.0.1:8000/movies/movies/${movieId}`,
+        url: `http://127.0.0.1:8000/movies/movies/${content.movieId}`,
+        headers: content.token
       })
         .then((res) => {
           //console.log(res)
@@ -44,20 +47,18 @@ export default new Vuex.Store({
         })
 
     },
-    // createReview: function({commit}, context) {
-    //   axios({
-    //     method:'post',
-    //     url: `http://127.0.0.1:8000/movies/movies/${context[1]}/reviews/`,
-    //     data: context[0]
-    //   })
-    //    .then(res => {
-    //      console.log(res)
-    //      commit('CREATE_REVIEW', res.data)
-    //    })
-    //    .catch(err => {
-    //      console.log(err)
-    //    })
-    // }
+    GetUserName: function({commit},content) {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/accounts/getuser/${content.userid}`,
+        headers: content.token
+      })
+        .then((res) => {
+          console.log(res)
+          commit('GET_USER_NAME', res.data.username)
+        } )
+    }
+ 
   },
   modules: {
   }

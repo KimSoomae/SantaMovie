@@ -27,9 +27,27 @@ import ReviewList from '@/components/ReviewList.vue'
 export default {
   components: { CreateReview, ReviewList },
   name: 'MovieDetail', 
-  created: function() {
-    this.$store.dispatch('LoadMovieDetail', this.$route.params.movieId)
+  methods: {
+    setToken: function() {
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
+
   },
+  
+  created: function() {
+    const config = this.setToken()
+    const content = {
+      token: config,
+      movieId: this.$route.params.movieId
+    }
+    
+    this.$store.dispatch('LoadMovieDetail', content)
+  },
+  
   computed: {
     ...mapState(['movie']),
     imgUrl: function(){
@@ -37,9 +55,7 @@ export default {
 
 }
   },
-  methods: {
 
-  }
 }
 </script>
 

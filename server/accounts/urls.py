@@ -9,4 +9,5 @@ urlpatterns = [
     path('signup/', views.signup),
     #path('save-movie/<int:movie_id>/', views.save_movie),
     path('api-token-auth/', obtain_jwt_token),
+    path('getuser/<int:user_id>/', views.get_user)
 ]
