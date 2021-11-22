@@ -47,6 +47,7 @@ def community_update_delete(request, community_pk):
     community = get_object_or_404(Community, pk=community_pk)
 
     if request.method == 'GET':
+        print('오류오류ㅗ유로유로')
         serializer = CommunitySerializer(community)
         return Response(serializer.data)
     
