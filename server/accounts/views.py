@@ -7,6 +7,7 @@ from .models import PickMovie, User
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers, status
+from django.contrib.auth import get_user_model
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -28,7 +29,7 @@ def signup(request):
 
 @api_view(['GET','POST'])
 @permission_classes([AllowAny])
-def get_user(request):
+def get_loginuser(request):
     print(request.user)
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
@@ -69,3 +70,15 @@ def save_movie(request, movie_id):
     #         print(f'여기도 들어오니??!!!!!!!')
     #         serializer.save(moviepicks = mymovie)
     #         return Response(serializer.data)
+# @api_view(['POST'])
+# def save_movie(request):
+#     if request.method == 'POST':
+#         serializer = UserSerializer(request.user)
+#         user.moviepicks += 
+
+
+@api_view(['GET'])
+def get_user(request,user_id):
+    user = get_object_or_404(get_user_model(), pk=user_id)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)

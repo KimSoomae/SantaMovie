@@ -3,6 +3,8 @@
     {{review.title}} -- {{review.rank}}
     <button>수정</button>
     <button @click="deleteReview">삭제</button>
+    <!-- modal -->
+    
   </div>
 </template>
 
@@ -15,15 +17,26 @@ export default {
     movieid: Number,
   },
   methods: {
+    setToken: function() {
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
     deleteReview: function() {
+      const config = this.setToken()
+      const content = {
+      token: config,
+      movieId: this.movieid
+    }
       axios({
         method: 'DELETE',
         url: `http://127.0.0.1:8000/movies/reviews/${this.review.id}/`,
+        headers: this.setToken(),
       })
-        .then(res => {
-          console.log('예쓰')
-            console.log(res)
-            this.$store.dispatch('LoadMovieDetail', this.movieid)
+        .then(() => {
+            this.$store.dispatch('LoadMovieDetail', content)
           })
           .catch(err => {
             console.log(err)

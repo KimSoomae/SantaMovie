@@ -19,8 +19,18 @@ export default {
   components: {
     MovieCard,
   },
+  methods: {
+    setToken: function() {
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
+
+  },
   created: function() {
-    this.$store.dispatch('LoadMovieCards')
+    this.$store.dispatch('LoadMovieCards', this.setToken())
   },
   computed: {
     ...mapState(['movies'])
