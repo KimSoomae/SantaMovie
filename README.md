@@ -1,6 +1,6 @@
 # PJT-Final: 영화 추천 사이트 만들기
 
->  11/17(수)
+>  ## 11/17(수)
 
 ### 🌈Goals
 
@@ -141,7 +141,7 @@
 
 ![](https://i.esdrop.com/d/eae6tqatp81y/u9gXKb0K7o.jpeg.sthumb)
 
-> **11/18(목)**
+> ## **11/18(목)**
 
 ### 🌈Goals
 
@@ -194,11 +194,47 @@
 
 ![](https://i.esdrop.com/d/eae6tqatp81y/XnDFcXOwtD.jpeg.sthumb)
 
-python dumpdata.py
+> ## 11월 22일(월)
 
-python manage.py loaddata movies/get_movie_data/movies.json
+월요일 아자아자 화이팅.
+
+# Goals
+
+- Community, 댓글 Vue
+
+- 커뮤니티-유저, 커뮤니티-태그
+
+- My Page Vue, 유저에 선호하는 영화 데이터 저장
+
+- 영화 추천 알고리즘
+
+- 장르연결
+
+  
+
+# Discussion Items
+
+- 
+
+# Action Items
 
 
+
+- [x] PickMovie - Genre 연결 
+
+- [x] My Page Vue, 유저에 선호하는 영화 데이터 저장 
+
+- [x] Community, 댓글 Vue 
+
+- [x] 커뮤니티-유저 연결 
+
+- [x] 합치기
+
+- [x] 커뮤니티-태그 
+
+- [x] 태그 검색 
+
+  
 
 
 
@@ -217,3 +253,98 @@ from movies.models import Genre
 
 
 
+> ManyToMany Field Serializer 데이터 저장
+
+Create하면서 동시에 ManyToMany 데이터 추가해야되는데, 막막했음. 
+
+Django 공식 문서를 보며 해결.
+
+1. 먼저 serializer.save()를 통해 community 생성
+2. 생성한 serializer의 id로 community object 얻어오기
+3. 태그 리스트 반복문 돌면서 해당하는 이름의 태그 Object 불러오기
+4. 없으면 Tag 테이블에 추가
+5. 해당 Tag Object를 Community Object의 ManyToMany Field에 추가
+
+```python
+		taglist = request.data['tags'].split('#')[1:]  
+    serializer = CommunitySerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user)
+        community= get_object_or_404(Community, pk =serializer.data['id'])
+
+        for i in range(len(taglist)):
+            if not Tag.objects.filter(name=taglist[i]).exists():
+                Tag.objects.create(name=taglist[i])
+            tag = Tag.objects.get(name=taglist[i])
+            community.tags.add(tag)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+```
+
+
+
+### 중간 결과 사진 - 꾸미기 전!!!
+
+1. Home 화면 - 영화 추천할
+
+![](./images/home.png)
+
+2. 커뮤니티 화면
+
+![](./images/community.png)
+
+3. 커뮤니티 - 태그로 검색
+
+   ![](./images/community_search.png)
+
+   4. 회원가입 - 영화취향 고르기
+
+      ![](./images/mypage.png)
+
+   5. 마이페이지
+
+   ![](./images/mypagelist.png)
+
+
+
+오늘은 재현이가 아팠다. 아픈데도 프로젝트를 중단할 수 없는 현실이 참 슬펐다.
+
+수민이는 가슴이 답답하다. 오늘 눈이 온다는 소식이 들린다. 마음이 싱숭생숭하다. 
+
+그래도 스트레스뿐이었던 어제 밤보단 낫다. 어제 밤에는 각자 했기 때문이다.
+
+역시 페어를 만나야 힘이 나는 것 같다. 내일도 화이팅.
+
+
+
+> ## 11월 23일(화)
+
+## Goals
+
+- [ ] 영화 추천 알고리즘
+- [ ] 데이터 넣어야 될 것: MoviePick, Christmas 영화
+- [ ] 꾸미는 거 시작
+- [ ] 협업 필터링 
+
+
+
+🌟 협업 Filtering
+
+1. 회원가입 시 좋아하는 영화 여러개 선택 - 가장 많은 장르 1, 2순위
+
+- 여러개 어려우면 하나만 선택해서 장르 두개 뽑기
+
+2. 유저가 선택한 좋아하는 영화 장르를 똑같이 좋아하는 유저 뽑기
+
+3. 그 유저가 좋아요 누른 영화들을 좋아요 많은 순으로 추천
+
+   
+
+🎄 크리스마스
+
+1. 좋아하는 장르 먼저 보여주기
+
+2. 데이터는 직접 넣기
+
+   
+
+💡 영화 유명한 순으로
