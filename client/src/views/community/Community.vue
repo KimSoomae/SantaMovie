@@ -36,7 +36,7 @@ export default {
     searchTag: function() {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/community/${this.search}`,
+        url: `http://127.0.0.1:8000/community/search/${this.search}`,
         headers: this.setToken(),
       })
       .then(res => {

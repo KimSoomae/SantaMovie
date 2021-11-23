@@ -15,8 +15,8 @@ class PickMovie(models.Model):
         return self.title
     
 class User(AbstractUser):
-   # moviepicks = models.ManyToManyField(PickMovie, blank=True)
-    moviepicks = models.ForeignKey(PickMovie, on_delete=models.CASCADE, null=True)
+    moviepicks = models.ManyToManyField(PickMovie, blank=True, null=True, related_name='user_pick')
+    # moviepicks = models.ForeignKey(PickMovie, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.username
 

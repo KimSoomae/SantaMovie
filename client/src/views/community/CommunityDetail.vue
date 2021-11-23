@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>CommunityDetail</h1>
-
     {{community.id}}
     <br>
     {{community.title}}
@@ -11,6 +10,7 @@
     {{community.created_at}}
     <br>
     {{community.updated_at}}
+    <div v-for="tag in community.tags" :key="tag.id">{{tag.name}}</div>
     <br>
     {{username}}
     <comment-list :comments="community.comments"></comment-list>

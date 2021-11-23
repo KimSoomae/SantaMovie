@@ -49,7 +49,7 @@ def save_movie(request, movie_id):
     print(f'여기ㄷ까지 들어오니!!!!!{movie_id}')
     mymovie = get_object_or_404(PickMovie, pk=movie_id)
     user = get_object_or_404(User, pk=request.user.id)
-    user.moviepicks=mymovie
+    user.moviepicks.add(mymovie)
     user.save()
     print(user.moviepicks)
   

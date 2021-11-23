@@ -27,8 +27,8 @@ export default {
   },
   data: function() {
     return {
-      key: false,
-      like_users: 0,
+      key: Boolean,
+      like_users: Number,
 
     } 
   },

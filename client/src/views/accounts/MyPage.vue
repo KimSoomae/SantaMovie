@@ -19,6 +19,7 @@ export default {
   name: 'MyPage',
   data: function(){
     return{
+      cnt : 1,
       moviePicks: 
         {
           title: null,
@@ -46,7 +47,11 @@ export default {
       })
       .then(res => {
         console.log(res)
-        this.$router.push({name:'Home'})
+        this.cnt = this.cnt * 2
+        if (this.cnt === 8) {
+          this.$router.push({name:'Home'})
+        }
+        
       })
 
     },
