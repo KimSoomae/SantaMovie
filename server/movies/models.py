@@ -21,6 +21,17 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
+class ChristmasMovie(models.Model):
+    title = models.CharField(max_length=50)
+    popularity = models.FloatField(default=0.0)
+    genre_ids = models.ManyToManyField(Genre, related_name='christmasmovie_genre')
+    release_date = models.DateField()
+    overview = models.TextField()
+    poster_path = models.TextField()
+    like_users =  models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_christmasmovies', blank=True)
+    actors = models.CharField(max_length=200, default='')
+    def __str__(self):
+        return self.title
 
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
