@@ -348,3 +348,110 @@ Django 공식 문서를 보며 해결.
    
 
 💡 영화 유명한 순으로
+
+
+
+# Action Items
+
+- [x] 협업 필터링
+- [x] 좋아요 Vue 수정
+- [x] 유튜브 예고편 넣기
+- [x] 크리스마스 데이터 불러와서 db 저장
+- [x] home 화면 꾸미기
+
+
+
+- **협업 필터링 추천 알고리즘**
+  - 사용자가 회원가입시 대표 영화 20개 중 좋아하는 영화 5개를 고르면 save_movie 함수를 통해 user의 pickmovie에 저장한다. 
+  - 저장된 pickmovies의 장르를 합쳐서 그 중 TOP 2개의 장르를 save_user_genre 함수흫 통해 user의 최애 장르(user 모델의 first_genre와 second genre필드)로 저장한다.
+  - 사용자의 1순위, 2순위 장르를 공통적으로 가지고 있는 다른 유저들을 찾고 그 유저들이 좋아요 누른 영화들을 get_recommend_movie를 통해 가져온다.  
+  - 여기서 해결해야할 점은 가져온 영화들을 좋아요 순으로 나열해야한다는 점이다
+
+```python
+@api_view(['POST'])
+def save_movie(request, movie_id):
+    mymovie = get_object_or_404(PickMovie, pk=movie_id)
+    user = get_object_or_404(User, pk=request.user.id)
+    user.moviepicks.add(mymovie)
+    user.save()
+    print(user.moviepicks)
+    return Response()
+
+
+@api_view(['POST'])
+def save_user_genre(request):
+    genre_dict = defaultdict(int)
+    user = get_object_or_404(User, pk=request.user.id)
+    for movie in user.moviepicks.all():
+        for genre in movie.genre_ids.all():
+            genre_dict[genre.name] += 1
+    sorted_genre_dict = sorted(genre_dict.items(), reverse=True, key=lambda item:item[1])
+    print(sorted_genre_dict)
+    user.first_genre = sorted_genre_dict[0][0]
+    user.second_genre = sorted_genre_dict[1][0]
+    user.save()
+    return Response()
+
+
+@api_view(['GET'])
+def get_recommend_movie(request):
+    recommend_movie_list = []
+    user = get_object_or_404(User, pk=request.user.id)
+    print(user.username)
+    users = User.objects.all()
+    for check_user in users:
+        if check_user == user: 
+            continue
+        if (check_user.first_genre == user.first_genre and check_user.second_genre == user.second_genre) or (check_user.first_genre == user.second_genre and check_user.second_genre == user.first_genre):
+            recommend_movie = check_user.like_movies.all()
+            for r_movie in recommend_movie:
+                recommend_movie_list.append(r_movie)
+    serializer = MovieSerializer(set(recommend_movie_list), many=True)
+    return Response(serializer.data)
+
+```
+
+
+
+- **유튜브 예고편 넣기**
+
+  - 먼저 tmdb에서 movie.id를 통해 video를 가져오는 API를 사용했다.
+  - 이때 API에는 유튜브 API에 필요한 key 값이 오기 때문에 그 키 값을 가지고 유튜브 API에 접근하였다.
+  - 동영상은 <iframe>을 사용해 html에 띄워주었다.
+
+  ```javascript
+  getpreview: function() {
+        console.log(this.movie.id)
+        axios({
+          method: "GET",
+          url: `https://api.themoviedb.org/3/movie/${this.$route.params.movieId}/videos?api_key=API_KEY&language=en-US`,
+          headers: this.setToken()
+  
+        })
+        .then(res => {
+          if (res.data.results) {
+            this.video_key = res.data.results[0].key
+            this.videoUrl = `https://www.youtube.com/embed/${this.video_key}`
+          }
+  
+        })
+      },
+  ```
+
+  
+
+#### 중간 결과 사진
+
+- 협엽 필터링 기반 영화 추천
+
+![](./images/recommendation.png)
+
+- 영화 상세 페이지에 유튜브 예고편 삽입
+
+  ![](./images/youtube_preview.png)
+
+#### 느낀 점
+
+기본 기능이 어느정도 가춰졌다.. 그치만 꾸미는게 너무 걱정이다,, 그러나 해낼 수 있다!!!!!!
+
+내일은 조금 더 화이팅~~

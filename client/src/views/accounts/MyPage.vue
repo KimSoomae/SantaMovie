@@ -45,10 +45,20 @@ export default {
         url: `http://127.0.0.1:8000/accounts/save-movie/${movie_id}/`,
         headers: this.setToken(), // Authorization: JWT token값
       })
-      .then(res => {
-        console.log(res)
+      .then(() => {
         this.cnt = this.cnt * 2
-        if (this.cnt === 8) {
+        if (this.cnt === 32) {
+          axios({
+            method: 'post',
+            url: 'http://127.0.0.1:8000/accounts/save_user_genre/',
+            headers: this.setToken(),
+          })
+            .then(res=>{
+              console.log(res)
+            })
+            .catch (err => {
+              console.log(err)
+            })
           this.$router.push({name:'Home'})
         }
         

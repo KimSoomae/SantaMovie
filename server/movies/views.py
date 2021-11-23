@@ -68,20 +68,30 @@ def movie_review_update_delete(request,review_pk):
         }
         return Response(data,status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['POST'])
-def like(request, movie_pk):
+@api_view(['POST', 'GET'])
+def like(request, movie_pk):        
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=movie_pk)
         user = request.user
-
-        if movie.like_users.filter(pk=user.pk).exists():
-            movie.like_users.remove(user)
-            key = False
+        if request.method == 'GET':
+            if movie.like_users.filter(pk=user.pk).exists():
+                key = True
+            else:
+                key = False
+            context = {
+                'key' : key,
+                'like_users': movie.like_users.count() 
+            }
+            return Response(context) 
         else:
-            movie.like_users.add(user)
-            key = True
-        context = {
-            'key' : key,
-            'like_users' : movie.like_users.count()            
-        }
-        return Response(context) 
+            if movie.like_users.filter(pk=user.pk).exists():
+                movie.like_users.remove(user)
+                key = False
+            else:
+                movie.like_users.add(user)
+                key = True
+            context = {
+                'key' : key,
+                'like_users' : movie.like_users.count()            
+                }
+            return Response(context) 

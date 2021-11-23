@@ -16,8 +16,11 @@ class PickMovie(models.Model):
     
 class User(AbstractUser):
     moviepicks = models.ManyToManyField(PickMovie, blank=True, null=True, related_name='user_pick')
+    first_genre = models.CharField(max_length=50, null=True)
+    second_genre = models.CharField(max_length=50, null=True)
     # moviepicks = models.ForeignKey(PickMovie, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.username
+
 
 

@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
             model = PickMovie
             fields = '__all__'
 
-    moviepicks = MoviePickSerializer(read_only=True, allow_null=True)
+    moviepicks = MoviePickSerializer(read_only=True, many=True, allow_null=True)
     
     class Meta: 
         model = get_user_model()
