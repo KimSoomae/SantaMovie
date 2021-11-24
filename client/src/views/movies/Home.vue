@@ -1,13 +1,5 @@
 <template>
   <div class="home">
-   
-
-      <h1>영화 추천</h1>
-      <recommend-movie-card
-        v-for="recommendmovie in recommendmovies"
-        :key="recommendmovie.id"
-        :recommendmovie = 'recommendmovie'
-      ></recommend-movie-card>
     <v-carousel
     cycle
     height="400"
@@ -42,7 +34,18 @@
       </v-sheet>
     </v-carousel-item>
   </v-carousel>
-
+<h1>영화 추천</h1>
+      <recommend-movie-card
+        v-for="recommendmovie in recommendmovies"
+        :key="recommendmovie.id"
+        :recommendmovie = 'recommendmovie'
+      ></recommend-movie-card>
+<h1>크리스마스 영화</h1>
+<christmas-movie-card
+  v-for="christmasmovie in christmasmovies"
+                :key="christmasmovie.id"
+                :christmasmovie = 'christmasmovie'>
+</christmas-movie-card>
 </div>
 </template>
 
@@ -51,10 +54,12 @@ import MovieCard from '@/components/MovieCard'
 import {mapState} from 'vuex'
 import axios from 'axios'
 import RecommendMovieCard from '../../components/RecommendMovieCard.vue'
+import ChristmasMovieCard from '../../components/ChristmasMovieCard.vue'
 export default {
   name: 'Home',
   data () {
       return {
+        recommendmovies: Array,
         colors: [
           'red darken-4',
           'green darken-4',
@@ -78,12 +83,9 @@ export default {
   components: {
     MovieCard,
     RecommendMovieCard,
+    ChristmasMovieCard,
   },
-  data: function() {
-    return {
-      recommendmovies: Array
-    }
-  },
+ 
   methods: {
     setToken: function() {
       const token = localStorage.getItem('jwt')
@@ -110,10 +112,12 @@ export default {
   },
   created: function() {
     this.$store.dispatch('LoadMovieCards', this.setToken())
+    this.$store.dispatch('LoadChristmasMovieCards', this.setToken())
     this.loadRecommendMovie()
   },
   computed: {
-    ...mapState(['movies'])
+    ...mapState(['movies']),
+    ...mapState(['christmasmovies']),
   }
 }
 </script>

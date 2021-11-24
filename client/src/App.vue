@@ -6,7 +6,8 @@
         <router-link to="/">Home</router-link> |
         <router-link @click.native="logout" to="#">Logout</router-link> |
         <router-link :to="{ name: 'MyPageList' }">MyPage</router-link> |
-        <router-link :to="{ name: 'Community' }">Community</router-link> 
+        <router-link :to="{ name: 'Community' }">Community</router-link> |
+        <router-link :to="{ name: 'Test' }">Test</router-link> 
       </span>
       <span v-else>
         <router-link :to="{ name: 'Signup' }">Signup</router-link> |

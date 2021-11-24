@@ -6,7 +6,7 @@
     <!-- {{comment.created_at}}
     {{comment.updated_at}} -->
     
-    <button @click="deleteComment">삭제</button>
+    <b-button @click="deleteComment">삭제</b-button>
     <!-- modal -->
     
   </div>

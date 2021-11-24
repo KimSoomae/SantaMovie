@@ -43,6 +43,14 @@ class Review(models.Model):
         return self.title
 
 
+class ChristmasReview(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+    christmasmovie = models.ForeignKey(ChristmasMovie, on_delete=models.CASCADE, related_name='christmasmovie_review', blank=True)
+    title = models.CharField(max_length=500)
+    rank = models.FloatField()
+
+    def __str__(self):
+        return self.title
 
 
 class Actor(models.Model):

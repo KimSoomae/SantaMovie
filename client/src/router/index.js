@@ -4,11 +4,13 @@ import Home from '../views/movies/Home.vue'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
 import MovieDetail from '@/views/movies/MovieDetail'
+import ChristmasMovieDetail from '@/views/movies/ChristmasMovieDetail'
 import MyPage from '@/views/accounts/MyPage'
 import MyPageList from '@/views/accounts/MyPageList'
 import Community from '@/views/community/Community'
 import CommunityDetail from '@/views/community/CommunityDetail'
 import CreateCommunity from '@/components/CreateCommunity'
+import Test from '@/views/Test'
 
 
 Vue.use(VueRouter)
@@ -21,9 +23,20 @@ const routes = [
   },
 
   {
+    path: '/test',
+    name: 'Test',
+    component: Test
+  },
+
+  {
     path: '/movie/:movieId',
     name: 'MovieDetail',
     component: MovieDetail
+  },
+  {
+    path: '/christmasmovie/:christmasmovieId',
+    name: 'ChristmasMovieDetail',
+    component: ChristmasMovieDetail
   },
 
   {
