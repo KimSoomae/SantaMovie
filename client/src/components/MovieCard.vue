@@ -1,47 +1,37 @@
 <template>
-  <div>
-			<div class="wrapper" style="width: 10rem; margin:0 auto; margin-right:60px;" >
-				<ul class="stage clearfix">
-
-					<li class="scene">
-            <!-- onclick="return true" -->
-            <div class="movie" onclick="return true" @click="moveToMovieDetail">
-              <img class="poster" :src="imgUrl" alt="..." >
-                <div class="info">
-                    <header>
-                        <h3>{{movie.title}}</h3>
-                        <h5 class="year">{{movie.popularity}}</h5>
-                        <h5 v-for="genre in movie.genre_ids" :key="genre.id">{{genre.name}}</h5>
-                        <h6>{{movie.overview}}</h6>
-                        <button @click="likeMovie"> 좋아요 </button>
-                        {{key}} -- {{like_users}}
-                    </header>
-                    
-                  
-             </div>
-            </div>
-         
-     
-					</li>
-          
-				</ul>
-			</div><!-- /wrapper -->
-		
-
-
-  <!-- <div class="card" style="width: 10rem; margin:0 auto" >
-    <div @click="moveToMovieDetail">
-        <img :src="imgUrl" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"><b>{{movie.title}}</b></h5>
-          <p class="card-text">{{movie.overview}}</p>
-          <p>{{movie.popularity}}</p>
-          <p v-for="genre in movie.genre_ids" :key="genre.id">{{genre.name}}</p>
-          </div>
-      </div>
-      <button @click="likeMovie"> 좋아요 </button>
-      {{key}} -- {{like_users}}
-  </div> -->
+  <div class="carddiv">
+	<div class="card" v-bind:style="{backgroundImage: 'url(' + imgUrl + ')'} ">
+        <div class="content">
+            <!-- <h2 class="title">{{movie.title}}</h2> -->
+						<p class="title">{{movie.title}}</p>
+            <span class="genre" v-for="genre in movie.genre_ids" :key="genre.id">
+									{{genre.name}},
+						</span>
+						<br>
+						<p class="overview">{{movie.overview}}</p>
+            <span class="genre">
+									<div v-if="key===true">
+										<button @click="likeMovie"><i class="fas fa-heart" style="color:red;"></i></button>-- {{like_users}}
+									</div>
+									<div v-else>
+										<button @click="likeMovie"><i class="far fa-heart"></i></button>-- {{like_users}}
+									</div>
+						</span>
+			
+						<v-btn
+        class="mx-2"
+        fab
+        dark
+        color="indigo"
+				@click="moveToMovieDetail"
+      >
+        <v-icon dark style="font-size:1rem;">
+          Detail
+        </v-icon>
+      </v-btn>
+						
+        </div>
+	</div>
 </div>
 </template>
 
@@ -120,222 +110,207 @@ export default {
 </script>
 
 <style>
-*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-
+@import url('https://fonts.googleapis.com/css?family=Cardo:400i|Rubik:400,700&display=swap');
+:root {
+  --d: 700ms;
+  --e: cubic-bezier(0.19, 1, 0.22, 1);
+  --font-sans: 'Rubik', sans-serif;
+  --font-serif: 'Cardo', serif;
+}
+* {
+  box-sizing: border-box;
+}
+html, body { 
+  height: 100%;
+	/* width: 10px; */
+}
 body {
-	background: darkblue;
-	font-family: 'Lato', Arial, sans-serif;
-	color: #fff;
+  display: grid;
+  place-items: center;
+
+}
+.page-content {
+  display: grid;
+  grid-gap: 1rem;
+  padding: 1rem;
+  max-width: 2024px;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+}
+@media (min-width: 600px) {
+  .page-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 800px) {
+  .page-content {
+		width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.wrapper {
-	margin: 0 auto 100px auto;
-	max-width: 960px;
+.card {
+	/*div에 이미지 꽉차게*/ 
+	background-size: cover ;
+	background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  color: whitesmoke;
+  background-color: whitesmoke;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1), 0 16px 16px rgba(0, 0, 0, 0.1);
 }
-
-.stage {
-	list-style: none;
-	padding: 0;
+@media (min-width: 600px) {
+  .card {
+    height: 350px;
+  }
 }
-
-/*************************************
-Build the scene and rotate on hover
-**************************************/
-
-.scene {
-	width: 260px;
-	height: 400px;
-	margin: 30px;
-	float: left;
-	-webkit-perspective: 1000px;
-	-moz-perspective: 1000px;
-	perspective: 1000px;
+.card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  background-size: cover;
+  background-position: 0 0;
+  transition: transform calc(var(--d) * 1.5) var(--e);
+  pointer-events: none;
 }
-
-.movie {
-	width: 260px;
-	height: 400px;
-	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-	-webkit-transform: translateZ(-130px);
-	-moz-transform: translateZ(-130px);
-	transform: translateZ(-130px);
-	-webkit-transition: -webkit-transform 350ms;
-	-moz-transition: -moz-transform 350ms;
-	transition: transform 350ms;
+.card:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  pointer-events: none;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.009) 11.7%, rgba(0, 0, 0, 0.034) 22.1%, rgba(0, 0, 0, 0.072) 31.2%, rgba(0, 0, 0, 0.123) 39.4%, rgba(0, 0, 0, 0.182) 46.6%, rgba(0, 0, 0, 0.249) 53.1%, rgba(0, 0, 0, 0.320) 58.9%, rgba(0, 0, 0, 0.394) 64.3%, rgba(0, 0, 0, 0.468) 69.3%, rgba(0, 0, 0, 0.540) 74.1%, rgba(0, 0, 0, 0.607) 78.8%, rgba(0, 0, 0, 0.668) 83.6%, rgba(0, 0, 0, 0.721) 88.7%, rgba(0, 0, 0, 0.762) 94.1%, rgba(0, 0, 0, 0.790) 100%);
+  transform: translateY(-50%);
+  transition: transform calc(var(--d) * 2) var(--e);
 }
-
-.movie:hover {
-	-webkit-transform: rotateY(-78deg) translateZ(20px);
-	-moz-transform: rotateY(-78deg) translateZ(20px);
-	transform: rotateY(-78deg) translateZ(20px);
+/* .card:nth-child(1):before{
+	background-image: url("imgUrl")
+} */
+/* .card:nth-child(1):before {
+  background-image: url(https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
 }
-
-/*************************************
-Transform and style the two planes
-**************************************/
-
-.movie .poster, 
-.movie .info {
-	position: absolute;
+.card:nth-child(2):before {
+  background-image: url(https://images.unsplash.com/photo-1533903345306-15d1c30952de?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+}
+.card:nth-child(3):before {
+  background-image: url(https://images.unsplash.com/photo-1545243424-0ce743321e11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+}
+.card:nth-child(4):before {
+  background-image: url(https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+} */
+.content {
+  position: relative;
+  display: inline-block;;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  transition: transform var(--d) var(--e);
+  z-index: 1;
+}
+.content > p.overview{
+	font-size: 1rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/* white-space: nowrap; */
 	width: 200px;
-	height: 300px;
-	background-color: #fff;
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	backface-visibility: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 4; /* ellipsis line */
+	-webkit-box-orient: vertical;
+	/* height: 30px; */
+	line-height: 1.2em;
 }
-
-.movie .poster  {
-	-webkit-transform: translateZ(130px);
-	-moz-transform: translateZ(130px);
-	transform: translateZ(130px);
-	background-size: cover;
-	background-repeat: no-repeat;
+.content > p.title{
+	font-size:2rem;
+	height:15px;
 }
-
-.movie .info {
-	-webkit-transform: rotateY(90deg) translateZ(130px);
-	-moz-transform: rotateY(90deg) translateZ(130px);
-	transform: rotateY(90deg) translateZ(130px);
-	border: 1px solid #B8B5B5;
-	font-size: 0.75em;
+.content > p.des{
+	font-size: 1rem;
+	height: 10px;
 }
-
-/*************************************
-Shadow beneath the 3D object
-**************************************/
-
-.csstransforms3d .movie::after {
-	content: '';
-	width: 260px;
-	height: 260px;
-	position: absolute;
-	bottom: 0;
-	box-shadow: 0 30px 50px rgba(0,0,0,0.3);
-	-webkit-transform-origin: 100% 100%;
-	-moz-transform-origin: 100% 100%;
-	transform-origin: 100% 100%;
-	-webkit-transform: rotateX(90deg) translateY(130px);
-	-moz-transform: rotateX(90deg) translateY(130px);
-	transform: rotateX(90deg) translateY(130px);
-	-webkit-transition: box-shadow 350ms;
-	-moz-transition: box-shadow 350ms;
-	transition: box-shadow 350ms;
+.content > span.genre{
+	text-align: center;
+	width: 50px;
+	font-size: 1rem;
+	height: 10px;
+	word-break : nowrap !important;
+	z-index:-1;
 }
-
-.csstransforms3d .movie:hover::after {
-	box-shadow: 20px -5px 50px rgba(0,0,0,0.3);
+.content > * + * {
+  margin-top: 1rem;
 }
-
-/*************************************
-Movie information
-**************************************/
-
-.info header {
-	color: #FFF;
-	padding: 7px 10px;
-	font-weight: bold;
-	height: 195px;
-	background-size: contain;
-	background-repeat: no-repeat;
-	text-shadow: 0px 1px 1px rgba(0,0,0,1);
+.title {
+  font-size: 0.6rem;
+  font-weight: bold;
+  line-height: 1.2;
 }
-
-.info header h1 {
-	margin: 0 0 2px;
-	font-size: 1.4em;
+.copy {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-style: italic;
+  line-height: 1.35;
 }
-
-.info header .rating {
-	border: 1px solid #FFF;
-	padding: 0px 3px;
+.btn {
+  cursor: pointer;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  color: white;
+  background-color: black;
+  border: none;
 }
-
-.info p {
-	padding: 1.2em 1.4em;
-	margin: 2px 0 0;
-	font-weight: 700;
-	color: #666;
-	line-height: 1.4em;
-	border-top: 10px solid #555;
+.btn:hover {
+  background-color: #0d0d0d;
 }
-
-/*************************************
-Generate "lighting" using box shadows
-**************************************/
-
-.movie .poster,
-.movie .info,
-.movie .info header {
-	-webkit-transition: box-shadow 350ms;
-	-moz-transition: box-shadow 350ms;
-	transition: box-shadow 350ms;
+.btn:focus {
+  outline: 1px dashed yellow;
+  outline-offset: 3px;
 }
-
-.csstransforms3d .movie .poster {
-	box-shadow: inset 0px 0px 40px rgba(255,255,255,0);
+@media (hover: hover) and (min-width: 600px) {
+.card:after {
+  transform: translateY(0);
 }
-
-.csstransforms3d .movie:hover .poster {
-	box-shadow: inset 300px 0px 40px rgba(255,255,255,0.8);
+.content {
+  transform: translateY(calc(100% - 4.5rem));
 }
-
-.csstransforms3d .movie .info, 
-.csstransforms3d .movie .info header {
-	box-shadow: inset -300px 0px 40px rgba(0,0,0,0.5);
+.content > *:not(.title) {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: transform var(--d) var(--e), opacity var(--d) var(--e);
 }
-
-.csstransforms3d .movie:hover .info, 
-.csstransforms3d .movie:hover .info header {
-	box-shadow: inset 0px 0px 40px rgba(0,0,0,0);
+.card:hover, .card:focus-within {
+  align-items: center;
 }
-
-/*************************************
-Posters and still images
-**************************************/
-
-.scene:nth-child(1) .movie .poster {
-  background-image: url(http://gallery.oneindia.in/ph-big/2013/09/aarambam-audio-launch-english-poster_137940737010.jpg);
+.card:hover:before, .card:focus-within:before {
+  transform: translateY(-4%);
 }
-
-.scene:nth-child(2) .poster {
-  background-image: url(http://www.diehardvijayfans.com/wp-content/uploads/2013/08/thalaiva11413_m.jpg);
+.card:hover:after, .card:focus-within:after {
+  transform: translateY(-50%);
 }
-
-.scene:nth-child(3) .poster {
-  background-image: url(http://static.rogerebert.com/uploads/movie/movie_poster/ram-leela-2013/large_7Xry4ghR6tPMS9DzFLblYRizV3.jpg);
+.card:hover .content, .card:focus-within .content {
+  transform: translateY(0);
 }
-
-.scene:nth-child(1) .info header {
-	background-image: url(http://timesofcity.com/wp-content/uploads/2013/11/Aarambam-19-Days-Collections.jpg);
+.card:hover .content > *:not(.title), .card:focus-within .content > *:not(.title) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--d) / 8);
 }
-
-.scene:nth-child(2) .info header {
-	background-image: url(http://media.chakpak.com/sites/default/files/styles/photoessay/public/Thalaiva-Movie-Posters.jpg);
+.card:focus-within:before, .card:focus-within:after, .card:focus-within .content, .card:focus-within .content > *:not(.title) {
+  transition-duration: 0s;
+  }
 }
-
-.scene:nth-child(3) .info header {
-	background-image: url(http://bollyspice.com/wp-content/uploads/2013/11/13nov_Ranveer-RamLeela05.jpg);
-}
-
-/*************************************
-Fallback
-**************************************/
-.no-csstransforms3d .movie .poster, 
-.no-csstransforms3d .movie .info {
-	position: relative;
-}
-
-/*************************************
-Media Queries
-**************************************/
-@media screen and (max-width: 60.75em){
-	.scene {
-		float: none;
-		margin: 30px auto 60px;
-	}
-}
-
 </style>

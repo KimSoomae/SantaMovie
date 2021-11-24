@@ -42,10 +42,9 @@
 
                             </div>
                             <div class="movie">
-                                <!-- <iframe :src="videoUrl" frameborder="0"></iframe> -->
                                 <svg
                                     class="trailerPlayButton"
-                                    :data-video="videoUrl"
+                                    data-video="https://www.youtube.com/embed/8hYlB38asDY"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 489.8 489.8"><path
                                     d="M244.9 0C109.8 0 0 109.8 0 244.9s109.9 244.9 244.9 244.9c135.1 0 244.9-109.9 244.9-244.9C489.8 109.8 380 0 244.9 0zm0 455.5c-116.1 0-210.6-94.5-210.6-210.6S128.8 34.3 244.9 34.3s210.6 94.5 210.6 210.6S361 455.5 244.9 455.5z"/><path
@@ -63,36 +62,154 @@
 
                                 </div>
                                 <div class="movieTitle">
-                                    <h1>{{movie.title}}</h1>
+                                    <h1>{{movie.title}}아아아아ㅏㅇ</h1>
                                     <p></p>
                                 </div>
 
                                 <div class="movieDescription">
                                     <a href="#" class="moreInfoBtn">
-                                        {{movie.overview}}
+                                        <p>A billionaire industrialist and genius inventor, Tony Stark (Robert Downey
+                                            Jr.), is conducting weapons tests overseas, but terrorists kidnap him to force
+                                            him to build a devastating weapon. Instead, he builds an armored suit and upends
+                                            his captors. Returning to America, Stark refines the suit and uses it to combat
+                                            crime and terrorism.</p>
+                                        <p>A billionaire industrialist and genius inventor, Tony Stark (Robert Downey
+                                            Jr.), is conducting weapons tests overseas, but terrorists kidnap him to force
+                                            him to build a devastating weapon. Instead, he builds an armored suit and upends
+                                            his captors. Returning to America, Stark refines the suit and uses it to combat
+                                            crime and terrorism.</p>
+                                        <p>A billionaire industrialist and genius inventor, Tony Stark (Robert Downey
+                                            Jr.), is conducting weapons tests overseas, but terrorists kidnap him to force
+                                            him to build a devastating weapon. Instead, he builds an armored suit and upends
+                                            his captors. Returning to America, Stark refines the suit and uses it to combat
+                                            crime and terrorism.</p>
+                                        <p>A billionaire industrialist and genius inventor, Tony Stark (Robert Downey
+                                            Jr.), is conducting weapons tests overseas, but terrorists kidnap him to force
+                                            him to build a devastating weapon. Instead, he builds an armored suit and upends
+                                            his captors. Returning to America, Stark refines the suit and uses it to combat
+                                            crime and terrorism.</p>
+                                        <p>A billionaire industrialist and genius inventor, Tony Stark (Robert Downey
+                                            Jr.), is conducting weapons tests overseas, but terrorists kidnap him to force
+                                            him to build a devastating weapon. Instead, he builds an armored suit and upends
+                                            his captors. Returning to America, Stark refines the suit and uses it to combat
+                                            crime and terrorism.</p>
                                     </a>
                                 </div>
 
                                 <div class="movieGenres">
-                                    <span class="genre" v-for="genre in movie.genre_ids" :key="genre.id">{{genre.name}}</span>                               
-                                    <span class="genre" v-for="actor in movie.movie_actor" :key='actor.id'>{{actor.name}}</span>
-                                    <span class="movieLength">{{movie.release_date}}</span>
-                                </div>
-                              
-                                
-                            </div>
-                    
+                                    <span class="genre">2008</span>
+                                    <span class="genre">SCI-FI</span>
+                                    <span class="genre">THRILLER</span>
 
-                                                </div> 
+                                    <span class="movieLength">2h 06m</span>
+                                </div>
+                            </div>
+
+                            <div class="checkout">
+                                <a href="#" class="checkoutButton">PURCHASE &pound;2.99</a>
+                            </div>
+
+                            <div class="checkoutForm">
+                                <div class="paymentOption">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="creditCardButton"
+                                        viewBox="0 0 31.494 31.494"><path
+                                        d="M10.273 5.01c.444-.445 1.143-.445 1.587 0 .43.428.43 1.142 0 1.57l-8.047 8.047h26.554c.62 0 1.127.492 1.127 1.11 0 .62-.508 1.128-1.127 1.128H3.813l8.047 8.032c.43.444.43 1.16 0 1.587-.444.444-1.143.444-1.587 0L.32 16.532c-.428-.43-.428-1.143 0-1.57l9.953-9.953z"/></svg>
+                                    <div class="paymentSelecion">
+                                        <div class="paymentOptionCreditCard active">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.16 512.16"><path
+                                                d="M273.067 337.147H409.6c5.12 0 8.533-3.413 8.533-8.533v-76.8c0-5.12-3.413-8.533-8.533-8.533H273.067c-5.12 0-8.533 3.414-8.533 8.534v76.8c0 5.12 3.413 8.533 8.533 8.533zm8.533-76.8h119.467v59.733H281.6v-59.733zM42.667 226.213h68.267c5.12 0 8.533-3.413 8.533-8.533s-3.413-8.533-8.533-8.533H42.667c-5.12 0-8.533 3.413-8.533 8.533s3.413 8.533 8.533 8.533zM145.067 226.213h68.267c5.12 0 8.533-3.413 8.533-8.533s-3.413-8.533-8.533-8.533h-68.267c-5.12 0-8.533 3.413-8.533 8.533s3.413 8.533 8.533 8.533zM42.667 260.347H153.6c5.12 0 8.533-3.413 8.533-8.533s-3.413-8.533-8.533-8.533H42.667c-5.12 0-8.533 3.414-8.533 8.534s3.413 8.533 8.533 8.533zM213.333 243.28h-25.6c-5.12 0-8.533 3.413-8.533 8.533s3.413 8.533 8.533 8.533h25.6c5.12 0 8.533-3.413 8.533-8.533s-3.413-8.533-8.533-8.533z"/><path
+                                                d="M504.32 137.467c-5.973-7.68-13.653-11.947-23.04-12.8l-20.48-2.482V81.147c0-18.773-15.36-34.133-34.133-34.133H34.133C15.36 47.014 0 62.374 0 81.147v273.068c0 15.413 10.357 28.518 24.453 32.718-.43 17.262 12.63 32.248 30.16 33.842l394.24 44.373h3.414c17.067 0 32.427-12.8 34.133-29.013l25.6-273.92c.853-8.534-1.707-17.92-7.68-24.747zm-487.253-30.72h426.667v51.2H17.067v-51.2zM34.133 64.08h392.533c9.387 0 17.067 7.68 17.067 17.067v8.533H17.067v-8.533c0-9.387 7.68-17.067 17.066-17.067zM17.067 354.213v-179.2h426.667v179.2c0 9.387-7.68 17.067-17.067 17.067H34.134c-9.387 0-17.067-7.68-17.067-17.067zM494.933 158.8l-25.6 273.92c-.853 9.387-9.387 16.213-18.773 15.36L57.173 403.707c-8.533-.853-14.507-7.68-15.36-15.36h384.853c18.773 0 34.133-15.36 34.133-34.133V138.32l19.626 1.707c4.267 0 8.533 2.56 11.093 5.973 2.56 3.413 4.267 8.533 3.413 12.8z"/></svg>
+                                            <span>Credit Card</span>
+                                        </div>
+                                        <div class="paymentOptionPaypal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512"><path
+                                                d="M440.316 65.388c12.85 6.288 24.047 15.243 32.252 26.24 17.268 23.15 22.117 54.687 14.418 93.734-7.78 39.513-25.21 72.868-50.584 97.022-4.64 4.852-9.61 9.373-14.902 13.54-27.178 21.4-61.498 32.714-99.254 32.714H202.218L169.935 480h-66.212l5.043-23.15h23.064l32.282-151.363h94.135c90.124 0 165.47-55.537 185.63-149.966C466.737 48.604 390.077 0 324.172 0H99.532L0 456.85h76.016L64 512h131.83l32.282-151.363h94.134c90.125 0 165.47-55.54 185.63-149.968 16.858-78.84-20.4-125.966-67.56-145.282zM211.172 93.042h64.566c32.295 0 53.8 27.77 44.393 62.478-8.065 34.72-41.692 62.488-75.32 62.488h-61.878l28.24-124.966z"/></svg>
+                                            <span>PayPal</span>
+                                        </div>
+                                    </div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="payPalButton"
+                                        viewBox="0 0 31.49 31.49"><path
+                                        d="M21.205 5.007c-.43-.444-1.143-.444-1.587 0-.43.43-.43 1.143 0 1.57l8.047 8.048H1.11c-.618 0-1.11.493-1.11 1.112 0 .62.492 1.127 1.11 1.127h26.555l-8.047 8.032c-.43.444-.43 1.16 0 1.587.444.444 1.16.444 1.587 0l9.952-9.952c.444-.428.444-1.142 0-1.57l-9.952-9.953z"/></svg>
+
+                                </div>
+
+                                <form class="creditCardForm checkoutActive" method="" action="">
+
+                                    <div class="flipInputs">
+                                        <input
+                                            type="text"
+                                            name="cardNumber"
+                                            id="cardNumber"
+                                            maxlength="19"
+                                            placeholder="1234 1234 1324 1234">
+                                            <label for="cardNumber">Card Number</label>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612.069 612.069"><path
+                                                d="M562.4 96.695H49.67C22.228 96.695 0 118.922 0 146.363v319.343c0 27.44 22.227 49.668 49.668 49.668H562.4c27.442 0 49.67-22.227 49.67-49.668V146.294c-.07-27.372-22.297-49.6-49.67-49.6zM49.67 124.067H562.4c11.87 0 22.228 9.604 22.228 22.227v41.504H27.44v-41.504c0-11.8 9.674-22.227 22.228-22.227zm534.96 131.167H27.44v-40.75H584.63v40.75zM562.4 487.864H49.67c-11.868 0-22.227-9.604-22.227-22.227V282.675H584.63V464.95c0 12.555-9.673 22.914-22.227 22.914zM520.897 356.01c0 7.41-5.9 13.31-13.31 13.31h-142.28c-7.408 0-13.308-5.9-13.308-13.31 0-7.408 5.9-13.308 13.31-13.308h141.525c7.41-.754 14.063 5.145 14.063 13.31zm0 72.582c0 7.41-5.9 13.31-13.31 13.31H426.09c-7.41 0-13.31-5.9-13.31-13.31s5.9-13.31 13.31-13.31h81.5c6.654 0 13.308 5.9 13.308 13.31z"/></svg>
+                                        </div>
+
+                                        <div class="flipInputs small">
+                                            <input type="text" name="expiryDate" id="expiryDate" placeholder="MM/YY">
+                                                <label for="expiryDate">Exp. Date</label>
                                             </div>
 
-                                            <div class="disclaimer" style="margin-left: 300px;">
-                                                
-                                                <h3 style="color:white;">한줄평</h3>
-                                                <review-list :reviews="movie.movie_review" :movieid ="movie.id" style="color:white;"></review-list>
-                                                <p v-for="actor in movie.movie_actor" :key='actor.id'>{{actor.name}}</p>
-                                                
-                                                <create-review :movie ="movie.id"></create-review>
+                                            <div class="flipInputs small">
+                                                <input
+                                                    type="text"
+                                                    name="cvvNumber"
+                                                    id="cvvNumber"
+                                                    maxlength="3"
+                                                    placeholder="***">
+                                                    <label for="cvvNumber">CVV</label>
+                                                </div>
+
+                                                <div class="flipInputs">
+                                                    <input type="text" name="nameInput" id="nameInput" placeholder="Tony Stark">
+                                                        <label for="nameInput">Name</label>
+                                                    </div>
+
+                                                </form>
+
+                                                <form class="payPalForm" method="" action="">
+
+                                                    <div class="flipInputs">
+                                                        <input
+                                                            type="email"
+                                                            name="payPalEmail"
+                                                            id="payPalEmail"
+                                                            placeholder="tony@starindustries.com">
+                                                            <label for="payPalEmail">PayPal Email</label>
+                                                        </div>
+
+                                                        <div class="flipInputs">
+                                                            <input
+                                                                type="password"
+                                                                name="payPalEmail"
+                                                                id="payPalEmail"
+                                                                placeholder="****************">
+                                                                <label for="payPalEmail">PayPal Password</label>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="disclaimer">
+                                                <a href="#" class="demoButton">Demo</a>
+                                                <p>I Found
+                                                    <a
+                                                        href="https://dribbble.com/shots/3102947-Sketching-Killing-boredom"
+                                                        target="_blank">this design on Dribble</a>
+                                                    a the description said 'Killing boredom', so I thought I would do the same by
+                                                    bringing his design to life.</p>
+                                                <p>Designed By</p>
+                                                <h3>Alex Salmerón</h3>
                                                 <div class="designerSocial">
                                                     <a href="http://www.mefaltaunpixel.es/" target="_blank">
                                                         <img
@@ -111,8 +228,22 @@
                                                     </div>
 
                                                 </div>
-
-
+                                                <h1>MovieDetail</h1>
+    <div class="card" style="width: 18rem; margin:0 auto" >
+    <img :src="imgUrl" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><b>{{movie.title}}</b></h5>
+      <p class="card-text">{{movie.overview}}</p>
+      <!-- 예고편 -->
+      <iframe :src="videoUrl" frameborder="0"></iframe>
+      <p v-for="genre in movie.genre_ids" :key="genre.id">{{genre.name}}</p>
+      <p v-for="actor in movie.movie_actor" :key='actor.id'>{{actor.name}}</p>
+      <p>{{movie.release_date}}</p>
+      <p>{{movie.popularity}}</p>
+    </div>
+     <review-list :reviews="movie.movie_review" :movieid ="movie.id"></review-list>
+  </div>
+  <create-review :movie ="movie.id"></create-review>
 
                                             </div>
 </template>
@@ -125,7 +256,7 @@ import ReviewList from '@/components/ReviewList.vue'
 import axios from 'axios'
 
                                             export default {
-                                                name: 'MovieDetail',
+                                                name: 'Test2',
                                                 components: {
                                                   CreateReview, ReviewList
                                                   
@@ -452,7 +583,6 @@ imgUrl: function () {
                                                 padding: 0;
                                                 box-sizing: border-box;
                                             }
-                                             
                                             h1,
                                             h2,
                                             h3 {
@@ -473,15 +603,14 @@ imgUrl: function () {
                                                 background-color: rgba(0, 0, 0, 0.9);
                                             }
                                             body:after {
-                                                
                                                 transition: background-color 1s ease-in-out;
                                                 position: absolute;
                                                 content: "";
                                                 display: block;
-                                                z-index: -1;
+                                                z-index: 0;
                                                 width: 100%;
                                                 height: 100%;
-                                                background-color: rgba(0, 0, 0, 0);
+                                                background-color: rgab(0, 0, 0, 0);
                                                 top: 0;
                                                 left: 0;
                                             }
@@ -528,7 +657,7 @@ imgUrl: function () {
                                                 width: 100%;
                                                 height: 100%;
                                                 z-index: 100;
-                                                transform-origin: 50% 50%;
+                                                transform-orign: 50% 50%;
                                                 transform: scale(0);
                                                 transition: transform 0.5s ease-in-out;
                                             }
@@ -992,6 +1121,4 @@ imgUrl: function () {
                                                     transform: rotate(0deg);
                                                 }
                                             }
-
- 
                                         </style>

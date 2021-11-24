@@ -1,8 +1,18 @@
 <template>
   <div>
-    {{review.title}} -- {{review.rank}}
-    <button>수정</button>
-    <button @click="deleteReview">삭제</button>
+    {{review.title}} ({{review.rank}}점)
+        <v-btn
+              color="error"
+              fab
+              x-small
+              dark
+              @click="deleteReview"
+              style="text-align:center;"
+            >
+              <v-icon>X</v-icon>
+            </v-btn>
+    <!-- </div> -->
+    <!-- <button @click="deleteReview">삭제</button> -->
     <!-- modal -->
     
   </div>

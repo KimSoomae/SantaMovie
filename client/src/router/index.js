@@ -11,6 +11,7 @@ import Community from '@/views/community/Community'
 import CommunityDetail from '@/views/community/CommunityDetail'
 import CreateCommunity from '@/components/CreateCommunity'
 import Test from '@/views/Test'
+import Test2 from '@/views/movies/test'
 
 
 Vue.use(VueRouter)
@@ -77,6 +78,11 @@ const routes = [
     component: CreateCommunity,
 
   },
+  {
+    path:'/movies/test',
+    name: 'Test2',
+    component: Test2,
+  }
   
 ]
 
