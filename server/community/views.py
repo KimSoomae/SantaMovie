@@ -15,10 +15,10 @@ def community_list_create(request):
         serializer = CommunityListSerializer(communitys, many=True)
         return Response(serializer.data)
     else:
-        print(request.data)
+        
         taglist = []
         taglist = request.data['tags'].split('#')[1:]
-        print(request.data)
+       
         
         serializer = CommunitySerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -47,7 +47,6 @@ def community_update_delete(request, community_pk):
     community = get_object_or_404(Community, pk=community_pk)
 
     if request.method == 'GET':
-        print('오류오류ㅗ유로유로')
         serializer = CommunitySerializer(community)
         return Response(serializer.data)
     

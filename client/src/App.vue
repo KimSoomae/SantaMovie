@@ -2,6 +2,7 @@
   
   <v-app>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <Snow/>
     <div id="app">
     <div id="nav">
       <span v-if="isLogin">
@@ -82,10 +83,14 @@
 </template>
 
 <script>
-
+import Snow from 'vue-niege';
+// import Snowf from 'vue-snowf';
 export default {
   name: 'App',
-
+  components: {
+    Snow
+      // Snowf
+  },
   data: function() {
     return{
       isLogin:false,
@@ -108,8 +113,9 @@ export default {
     }
   }
 };
+
 </script>
-<style>
+<style scoped>
   #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

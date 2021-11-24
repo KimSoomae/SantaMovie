@@ -85,7 +85,11 @@ def get_recommend_movie(request):
             recommend_movie = check_user.like_movies.all()
             for r_movie in recommend_movie:
                 recommend_movie_list.append(r_movie)
-    serializer = MovieSerializer(set(recommend_movie_list), many=True)
+        elif (check_user.first_genre == user.first_genre or check_user.second_genre == user.second_genre) or (check_user.first_genre == user.second_genre or check_user.second_genre == user.first_genre):
+            recommend_movie = check_user.like_movies.all()
+            for r_movie in recommend_movie:
+                recommend_movie_list.append(r_movie)
+        serializer = MovieSerializer(set(recommend_movie_list), many=True)
     return Response(serializer.data)
     
            
