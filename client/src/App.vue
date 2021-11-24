@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <Snow/>
     <div id="app">
     <div id="nav">
       <span v-if="isLogin">
@@ -79,10 +80,14 @@
 </template>
 
 <script>
-
+import Snow from 'vue-niege';
+// import Snowf from 'vue-snowf';
 export default {
   name: 'App',
-
+  components: {
+    Snow
+      // Snowf
+  },
   data: function() {
     return{
       isLogin:false,
@@ -105,14 +110,16 @@ export default {
     }
   }
 };
+
 </script>
-<style>
+<style scoped>
   #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: rgb(66, 47, 30);
 }
 
 #nav {
@@ -121,7 +128,7 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #ccc7c7;;
 }
 
 #nav a.router-link-exact-active {

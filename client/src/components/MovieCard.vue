@@ -119,7 +119,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 body {
