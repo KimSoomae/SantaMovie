@@ -80,6 +80,7 @@ export default new Vuex.Store({
 
     },
     GetUserName: function({commit},content) {
+      console.log(content)
       axios({
         method: 'get',
         url: `http://127.0.0.1:8000/accounts/getuser/${content.userid}`,

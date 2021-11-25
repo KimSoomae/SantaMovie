@@ -19,7 +19,7 @@
                 글쓴 시간: {{community.updated_at}}
                 <br>
               
-                글쓴이: {{username}}
+                글쓴이: {{community.userName}}
                 </div>
                 <br>
                 <div>
@@ -82,12 +82,6 @@ export default {
       })
         .then(res => {
           this.community = res.data
-         console.log('나다',this.community)
-          const content = {
-            token: this.setToken(),
-            userid: this.community.user
-          }
-          this.$store.dispatch('GetUserName', content)
           axios({
             method: 'get',
             url: `http://127.0.0.1:8000/accounts/check_same_user/${this.community.user}/`,
