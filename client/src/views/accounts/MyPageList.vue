@@ -8,6 +8,8 @@
     <div class="profile-card__cnt js-profile-cnt">
       <div class="profile-card__name">My name is "{{username}}"</div>
       <div class="profile-card__txt">I am the user of <strong>Santa Movie</strong></div>
+      <div class="profile-card__txt">My first genre preference: <strong>{{firstgenre}}</strong></div>
+      <div class="profile-card__txt">My second genre preference: <strong>{{secondgenre}}</strong></div>
       <div class="profile-card-loc">
         <span class="profile-card-loc__icon">
           <svg class="icon"><use xlink:href="#icon-location"></use></svg>
@@ -58,6 +60,8 @@ export default {
   data: function(){
     return{
       username: null,
+      firstgenre: null,
+      secondgenre: null,
       moviepicks: Array,
       likemovies: Array
       
@@ -95,6 +99,8 @@ export default {
       console.log(res.data)
       this.username = res.data.username
       this.moviepicks = res.data.moviepicks
+      this.firstgenre = res.data.first_genre
+      this.secondgenre = res.data.second_genre
       //this.moviePicks = res.data
 
     })

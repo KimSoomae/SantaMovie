@@ -4,6 +4,7 @@
         <div class="content">
             <!-- <h2 class="title">{{movie.title}}</h2> -->
 						<p class="title">{{movie.title}}</p>
+						<br>
             <span class="genre" v-for="(genre, idx) in movie.genre_ids" :key="genre.id">
 									<span v-if="idx< 3" class="genre" >  
                   {{genre.name}},
@@ -28,6 +29,7 @@
         dark
         color="indigo"
 				@click="moveToMovieDetail"
+				style="margin-top:-10px;"
       >
         <v-icon dark style="font-size:1rem;">
           Detail
@@ -123,6 +125,7 @@ export default {
 }
 * {
   box-sizing: border-box;
+	
 }
 html, body { 
   height: 100%;

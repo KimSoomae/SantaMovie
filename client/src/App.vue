@@ -32,69 +32,23 @@
     </audio>
     </div>
     <router-view @login="isLogin = true"/>
-    
+    <v-footer padless dark>
+    <v-col
+      class="py-2 white--text text-center"
+      cols="12"
+    >
+      {{ new Date().getFullYear() }}.11 - <strong>Coding Soojae</strong><br>
+      Jaehyeon Ko <v-icon size="24px">
+            {{ icon }}
+          </v-icon> jjjhyeon._.v <br>
+      Soomin Kim <v-icon size="24px">
+            {{ icon }}
+          </v-icon> so_omae
+    </v-col>
+  </v-footer>
   </div>
   </v-app>
 
-  <!-- <v-app>
-    
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-      
-         -->
-    <!-- <router-view @login="isLogin = true"/>
-        <div id="nav">
-          <span v-if="isLogin">
-            <router-link to="/">Home</router-link> |
-            <router-link @click.native="logout" to="#">Logout</router-link> |
-            <router-link :to="{ name: 'MyPageList' }">MyPage</router-link> |
-            <router-link :to="{ name: 'Community' }">Community</router-link> 
-          </span>
-          <span v-else>
-            <router-link :to="{ name: 'Signup' }">Signup</router-link> |
-            <router-link :to="{ name: 'Login' }">Login</router-link> 
-          </span>
-       </div>
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app> -->
 </template>
 
 <script>
@@ -108,6 +62,7 @@ export default {
   },
   data: function() {
     return{
+      icon: 'mdi-instagram',
       isLogin:false,
     }
   },

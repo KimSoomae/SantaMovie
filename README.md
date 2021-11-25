@@ -1,5 +1,259 @@
 # PJT-Final: 영화 추천 사이트 만들기
 
+### 1. 팀원 정보 및 업무 분담 내역
+
+고재현 - 영화 정보 (백), 커뮤니티(백, 프론트), 추천 알고리즘
+
+김수민 - 커뮤니티(백), 영화정보(프론트), 추천 알고리즘
+
+
+
+### 2. 목표 서비스 구현 및 실제 구현 정도
+
+목표: 크리스마스 컨셉의 3가지 추천 알고리즘에 기반한 영화 추천 사이트 구현
+
+실제 구현 정도: 95%
+
+이유: 커뮤니티의 디테일, 배포의 아쉬움
+
+
+
+### 3. 데이터베이스 모델링(ERD)
+
+![](README.assets/erd.jpeg)
+
+
+
+### 4. 필수 기능에 대한 설명
+
+#### 💡 추천 알고리즘 
+
+1) 취향저격 영화추천 - 협업 필터링 기반 추천
+
+>  협업 필터링이란? 
+
+많은 유저들로부터 모은 취향 정보들을 기반으로 하여 스스로 예측하는 기술
+
+> 사용자 기반 추천(User-based Recommendation)
+
+나와 비슷한 성향을 지닌 사용자를 기반으로, 그 사람이 구매한 상품을 추천하는 방식
+
+![](./images/filtering.png)
+
+1. 사용자의 취향 파악 
+
+   - 회원가입 시, 장르 별 대표적인 영화 20개 중, 5개 선택
+   - 5개 영화의 장르들 중에서, 가장 많이 나온 장르 2개 유저 정보에 저장
+
+   ```python
+   @api_view(['POST'])
+   def save_user_genre(request):
+       genre_dict = defaultdict(int)
+       user = get_object_or_404(User, pk=request.user.id)
+       for movie in user.moviepicks.all():
+           for genre in movie.genre_ids.all():
+               genre_dict[genre.name] += 1
+       sorted_genre_dict = sorted(genre_dict.items(), reverse=True, key=lambda item:item[1])
+       print(sorted_genre_dict)
+       user.first_genre = sorted_genre_dict[0][0]
+       user.second_genre = sorted_genre_dict[1][0]
+       user.save()
+       return Response()
+   ```
+
+   
+
+2. 유사한 유저 찾기 & 사용자 기반 추천
+
+   - 나를 제외한 유저들 중, 좋아하는 2개의 장르가 모두 같은 경우
+     - 그 유저들 이 좋아요를 누른 영화들을 나의 추천 영화 목록에 추가  
+   - 하나의 장르만 같은 경우도
+     - 그 유저들이 좋아요를 누른 영화들을 나의 추천 영화 목록에 추가
+
+   ```python
+   @api_view(['GET'])
+   def get_recommend_movie(request):
+       recommend_movie_list = []
+       user = get_object_or_404(User, pk=request.user.id)
+       users = User.objects.all()
+       for check_user in users:
+           if check_user == user: 
+               continue
+           # 1, 2순위 장르가 겹치면
+           if (check_user.first_genre == user.first_genre and check_user.second_genre == user.second_genre) or (check_user.first_genre == user.second_genre and check_user.second_genre == user.first_genre):
+               recommend_movie = check_user.like_movies.all()
+               # 그 유저가 좋아요 누른 영화들 추천리스트에 추가
+               for r_movie in recommend_movie:
+                   recommend_movie_list.append(r_movie)
+           # 하나만 겹칠 경우에도 그 다음 순으로 추가
+           elif (check_user.first_genre == user.first_genre or check_user.second_genre == user.second_genre) or (check_user.first_genre == user.second_genre or check_user.second_genre == user.first_genre):
+               recommend_movie = check_user.like_movies.all()
+               for r_movie in recommend_movie:
+                   recommend_movie_list.append(r_movie)
+           serializer = MovieSerializer(set(recommend_movie_list), many=True)
+       return Response(serializer.data)
+   ```
+
+   
+
+
+
+2) 크리스마스 영화추천
+
+1. 크리스마스를 키워드로 갖는 영화 데이터를 따로 저장
+2. 크리스마스 영화를 랜덤순으로 추천
+
+```python
+@api_view(['GET', 'POST'])
+def christmasmovie_list(request):
+    if request.method == "GET":
+        # 랜덤순으로 정렬
+        christmasmovies = ChristmasMovie.objects.order_by('?')
+        serializers = ChristmasMovieListSerializer(christmasmovies, many=True)
+        return Response(serializers.data)
+
+    elif request.method == 'POST':
+        serializer = ChristmasMovieSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+```
+
+
+
+3) 박스 오피스 기반 추천
+
+1. popular한 영화 100개 저장
+2. 사용자들의 좋아요 개수 많은 순으로 추천
+
+```python
+@api_view(['GET', 'POST'])
+def movie_list(request):
+    if request.method == "GET":
+      # 좋아요 순으로 정렬
+        movies = Movie.objects.annotate(likes=Count('like_users')).all().order_by('-likes')
+        serializers = MovieListSerializer(movies, many=True)
+        return Response(serializers.data)
+
+    elif request.method == 'POST':
+        serializer = MovieSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+```
+
+
+
+#### 💡 데이터 수집
+
+- 웹 사이트 개발을 위한 데이터 수집을 가장 먼저 진행했으며, 여러 TMDB API를 활용하여 주요 데이터를 수집하였다. 
+
+**API로 받아온 데이터를 DB로 저장하기**
+
+1. 데이터를 저장할 DB의 모델을 작성한다
+
+   ```python
+   class Movie(models.Model):
+   
+       title = models.CharField(max_length=50)
+       popularity = models.FloatField()
+       genre_ids = models.ManyToManyField(Genre, related_name='movie_genre')
+       release_date = models.DateField()
+       overview = models.TextField()
+       poster_path = models.TextField()
+   ```
+
+2. 영화 정보를 페이지별로 가져와서 for문을 돌려 새로운 json 파일에 저장한다
+
+   ```python
+   import json
+   import requests
+   result = []
+   url = 'https://api.themoviedb.org/3/movie/popular'
+   key = 'f9acc36e1794da31c1fa05368571a14c'
+   for page in range(1, 6):
+       URL = f'{url}?api_key={key}&language=ko-Kr&page={page}'
+   
+       raw_data = requests.get(URL).json()
+       data = raw_data.get('results')
+       for movie in data:
+           movie_dict = {
+               "model" : "movies.movie",
+               "pk" : movie.get("id"),
+               "fields" : {
+                   "title" : movie.get("title"),
+                   "popularity" : movie.get("popularity"),
+                   "genre_ids" : movie.get("genre_ids"),
+                   "release_date" : movie.get("release_date"),
+                   "overview" : movie.get("overview"),
+                   "poster_path" : movie.get("poster_path")
+               }
+           }
+           result.append(movie_dict)
+   
+   with open('movies.json', 'w', encoding='UTF-8') as file:
+       file.write(json.dumps(result, ensure_ascii=False))
+   ```
+
+   3. json 파일에 저장된 데이터를 아래의 `loaddata` 명령을 통해 DB를 가져온다. 이때, Movie 모델이 Genre 모델을 참조하고 있으므로 loaddata 명령은 반드시 Genre -> Movie 순으로 시행한다. 
+
+      ```
+      $ python manage.py loaddata movies/get_movie_data/movies.json
+      ```
+
+	사용한 API는 Get Popular, Get Credits, Get Keyword, Get Video가 있다. 
+
+#### 💡영화 정보
+
+1. 영화 메인 페이지
+   - 메인 페이지에서는 3가지의 추천 알고리즘이 한 눈에 보일 수 있도록 총 3줄로 구현하였다.
+   - Card, Carousel을 활용하여 영화의 포스터를 나열하였고 페이지를 넘길 때마다 초록과 빨강이 번갈아 나오도록 하였다.
+   -  각 영화 포스터에 마우스를 올리면 카드가 어두워지면서 영화 제목, 영화 간략 설명, 장르가 나오고 좋아요 버튼과 좋아요 수가 보여진다. 
+   - 이때 좋아요(하트) 버튼을 누르면 좋아요 수가 하나 증가하면서 하트가 빨간색으로 변한다. 
+2. 영화 상세 페이지
+   - 영화의 상세 페이지에는 영화 제목, 영화 상세 설명, 장르, 개봉일자가 표시된다. 
+   - 이때 재생 버튼을 누르면 youtube에서 해당 영화와 관련된 영상이 재생된다. 
+   - 화면 왼쪽에는 내용과 평점을 담은 한줄평을 작성할 수 있고 삭제는 작성자만이 가능하다. 
+
+
+
+#### 💡 커뮤니티 기능
+
+- 커뮤니티에서는 제목, 내용, 태그를 활용한 글을 작성할 수 있는데 이때 태그는 인스타그램처럼 앞에 #을 붙여서 쓴다. 
+
+- 쓰여진 태그는 검색 기능에 이용되며 같은 태그를 쓴 글이 검색된다.
+
+-  커뮤니티의 글은 수정 삭제가 가능하며 글 작성자만이 수정 삭제가 가능하다. 
+
+  ```python
+  taglist = []
+  taglist = request.data['tags'].split('#')[1:]
+         
+          
+  serializer = CommunitySerializer(data=request.data)
+  if serializer.is_valid(raise_exception=True):
+      serializer.save(user=request.user)
+      print(serializer.data)
+      community= get_object_or_404(Community, pk =serializer.data['id'])
+  
+      for i in range(len(taglist)):
+          print(type(taglist[i]))
+          if not Tag.objects.filter(name=taglist[i]).exists():
+              Tag.objects.create(name=taglist[i])
+          tag = Tag.objects.get(name=taglist[i])
+          print(tag)
+          community.tags.add(tag)
+     return Response(serializer.data, status=status.HTTP_201_CREATED)
+  ```
+
+### 5. 배포 서버 URL
+
+
+
+### 6. 기타 느낀 점
+
+
+
 >  ## 11/17(수)
 
 ### 🌈Goals
