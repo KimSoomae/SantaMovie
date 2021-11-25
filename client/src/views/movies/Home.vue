@@ -7,7 +7,7 @@
     </audio> -->
     <v-carousel v-model="model">
       <v-carousel-item
-        v-for="(color, i) in colors"
+        v-for="(color, i) in colors3"
         :key="color"
   
       >
@@ -23,17 +23,17 @@
             justify="center"
             
           >
-            <div class="text-h4" style="color: white; margin-top:0px;">
-            Box Office 추천 영화
+            <div class="text-h4" style="color: white; margin-top:20px;">
+            크리스마스 추천 영화
             
               <div class='container' style="display:flex; flex-flow: row wrap; width: 100%;  margin:0 auto; margin-left:-20px">
                 <main class="page-content">
-                <movie-card
-                  v-for="movie in movies.slice(i*4, i*4 + 4)"
-                  :key="movie.id"
-                  :movie = 'movie'
-                  
-                ></movie-card>
+               
+                <christmas-movie-card
+                v-for="christmasmovie in christmasmovies.slice(i*4, i*4+4)"
+                :key="christmasmovie.id"
+                :christmasmovie = 'christmasmovie'>
+                </christmas-movie-card>
                 </main>
             </div>
             </div>
@@ -41,6 +41,7 @@
         </v-sheet>
       </v-carousel-item>
        </v-carousel>
+   
       <hr>
   <v-carousel v-model="model2">
       <v-carousel-item
@@ -78,7 +79,7 @@
       </v-carousel-item>
     </v-carousel>
 <hr>
-<v-carousel v-model="model">
+ <v-carousel v-model="model">
       <v-carousel-item
         v-for="(color, i) in colors"
         :key="color"
@@ -96,17 +97,17 @@
             justify="center"
             
           >
-            <div class="text-h4" style="color: white; margin-top:20px;">
-            크리스마스 추천 영화
+            <div class="text-h4" style="color: white; margin-top:0px;">
+            Box Office 추천 영화
             
               <div class='container' style="display:flex; flex-flow: row wrap; width: 100%;  margin:0 auto; margin-left:-20px">
                 <main class="page-content">
-               
-                <christmas-movie-card
-                v-for="christmasmovie in christmasmovies.slice(i*4, i*4+4)"
-                :key="christmasmovie.id"
-                :christmasmovie = 'christmasmovie'>
-                </christmas-movie-card>
+                <movie-card
+                  v-for="movie in movies.slice(i*4, i*4 + 4)"
+                  :key="movie.id"
+                  :movie = 'movie'
+                  
+                ></movie-card>
                 </main>
             </div>
             </div>
@@ -139,9 +140,28 @@ export default {
           'rgb(131, 18, 22)',
           'rgb(51, 77, 16)',
           'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
         ],
         colors2: [
-          
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
           'rgb(51, 77, 16)',
           'rgb(131, 18, 22)',
           'rgb(51, 77, 16)',
@@ -149,14 +169,15 @@ export default {
           'rgb(51, 77, 16)',
           'rgb(131, 18, 22)',
         ],
-        slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
-          'Sixth',
-          'Seventh'
+        colors3: [
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
         ],
       }
     },
