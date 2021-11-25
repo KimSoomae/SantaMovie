@@ -7,12 +7,14 @@ from .serializers.movie import MovieSerializer, MovieListSerializer, ChristmasMo
 from .serializers.review import ReviewSerializer, ReviewListSerializer, ChristmasReviewListSerializer, ChristmasReviewSerializer
 from rest_framework import status
 from django.views.decorators.http import require_POST
+from django.db.models import Count 
 
 
 @api_view(['GET', 'POST'])
 def movie_list(request):
     if request.method == "GET":
-        movies = get_list_or_404(Movie)
+        # movies = Movie.objects.all().order_by('')
+        movies = Movie.objects.annotate(likes=Count('like_users')).all().order_by('-likes')
         serializers = MovieListSerializer(movies, many=True)
         return Response(serializers.data)
 

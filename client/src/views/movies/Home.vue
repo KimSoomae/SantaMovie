@@ -27,7 +27,7 @@
             justify="center"
             
           >
-            <div class="text-h4" style="color: white; margin-top:20px;">
+            <div class="text-h4" style="color: white; margin-top:0px;">
             Box Office 추천 영화
             
               <div class='container' style="display:flex; flex-flow: row wrap; width: 100%;  margin:0 auto; margin-left:-20px">
@@ -137,21 +137,21 @@ export default {
         colors: [
           'rgb(131, 18, 22)',
           // 'red darken-4',
-          'green darken-4',
-          'red darken-4',
-          'green darken-4',
-          'red darken-4',
-          'green darken-4',
-          'red darken-4',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
         ],
         colors2: [
           
-          'green darken-4',
-          'red darken-4',
-          'green darken-4',
-          'red darken-4',
-          'green darken-4',
-          'red darken-4',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
+          'rgb(51, 77, 16)',
+          'rgb(131, 18, 22)',
         ],
         slides: [
           'First',
@@ -229,9 +229,11 @@ body {
 .page-content {
   display: grid;
   grid-gap: 1rem;
-  padding: 1rem;
+  padding-left: 130px;
+  padding-bottom: 50px;
+  /* padding: 1rem; */
   max-width: 2024px;
-  margin: 0 auto;
+  margin: 100 auto;
   font-family: var(--font-sans);
 }
 @media (min-width: 600px) {
