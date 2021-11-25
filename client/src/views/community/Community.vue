@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div style="margin-left: -500px">
+        <span class="please">
         <h1>Community</h1>
-    </div>
+        </span>
     
     <div class="search-wrapper cf">
         <input type="text" placeholder="태그를 검색하세요." required="" v-model="search">
@@ -122,7 +122,7 @@ export default {
         font-size: 2em !;
         font-weight: 300;
         line-height: 1em;
-        text-align: center;
+        /* text-align: center; */
         color: #ccc7c7 ;
     }
 
@@ -143,6 +143,9 @@ export default {
         text-decoration: none;
     }
 
+    .please{
+      margin-left: 100px;
+    }
     .blue {
         color: #185875;
     }
