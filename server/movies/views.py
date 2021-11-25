@@ -25,7 +25,7 @@ def movie_list(request):
 @api_view(['GET', 'POST'])
 def christmasmovie_list(request):
     if request.method == "GET":
-        christmasmovies = get_list_or_404(ChristmasMovie)
+        christmasmovies = ChristmasMovie.objects.order_by('?')
         serializers = ChristmasMovieListSerializer(christmasmovies, many=True)
         return Response(serializers.data)
 
@@ -126,6 +126,35 @@ def christmasmovie_review_update_delete(request,christmasreview_pk):
 def like(request, movie_pk):        
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=movie_pk)
+        user = request.user
+        if request.method == 'GET':
+            if movie.like_users.filter(pk=user.pk).exists():
+                key = True
+            else:
+                key = False
+            context = {
+                'key' : key,
+                'like_users': movie.like_users.count() 
+            }
+            return Response(context) 
+        else:
+            if movie.like_users.filter(pk=user.pk).exists():
+                movie.like_users.remove(user)
+                key = False
+            else:
+                movie.like_users.add(user)
+                key = True
+            context = {
+                'key' : key,
+                'like_users' : movie.like_users.count()            
+                }
+            return Response(context) 
+
+
+@api_view(['POST', 'GET'])
+def christmaslike(request, christmasmovie_pk):        
+    if request.user.is_authenticated:
+        movie = get_object_or_404(ChristmasMovie, pk=christmasmovie_pk)
         user = request.user
         if request.method == 'GET':
             if movie.like_users.filter(pk=user.pk).exists():

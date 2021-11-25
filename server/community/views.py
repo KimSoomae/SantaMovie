@@ -50,14 +50,27 @@ def community_update_delete(request, community_pk):
         serializer = CommunitySerializer(community)
         return Response(serializer.data)
     
-    if not request.user.todo_set.filter(pk=community.pk).exists():
+    if not request.user.user_community.filter(pk=community.pk).exists():
         return Response({'detail' : '권한이 없습니다.'}, status=status.HTTP_403_FORBIDDEN)
 
     if request.method == 'PUT':
+        taglist = []
+        taglist = request.data['tags'].split('#')[1:]
         serializer = CommunitySerializer(community, data=request.data)
         if serializer.is_valid(raise_exception=True):
+            community.tags.all().delete()
             serializer.save()
-            return Response(serializer.data)
+            community= get_object_or_404(Community, pk =serializer.data['id'])
+
+            for i in range(len(taglist)):
+              
+                if not Tag.objects.filter(name=taglist[i]).exists():
+                    Tag.objects.create(name=taglist[i])
+                tag = Tag.objects.get(name=taglist[i])
+    
+                community.tags.add(tag)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            #return Response(serializer.data)
     else:
         community.delete()
         return Response({ 'id': community_pk })

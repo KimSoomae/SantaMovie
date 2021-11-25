@@ -121,7 +121,7 @@
 </div>
 </template>
 
-<script>
+<script >
 import MovieCard from '@/components/MovieCard'
 import RecommendMovieCard from '@/components/RecommendMovieCard.vue'
 import ChristmasMovieCard from '../../components/ChristmasMovieCard.vue'
@@ -205,7 +205,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 @import url('https://fonts.googleapis.com/css?family=Cardo:400i|Rubik:400,700&display=swap');
 :root {
   --d: 700ms;

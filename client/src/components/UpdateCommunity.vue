@@ -1,20 +1,10 @@
 <template>
-  <!-- <div>
-    제목: <input type="text" v-model="title">
-    <br>
-    내용: <input type="text" v-model="content">
-    <br>
-    태그 앞에 #을 넣어주세요
-    태그: <input type="text" v-model="tags">
-    <button @click="createCommunity">Submit</button>
-
-  </div> -->
     <div id="form-main">
   <div id="form-div">
     <form class="form" id="form1">
       
       <p class="name">
-        <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="제목을 입력해주세요." id="name" v-model="title"/>
+        <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" id="name" v-model="title"/> 
       </p>
       
       <p class="email">
@@ -22,12 +12,12 @@
       </p>
       
       <p class="text">
-        <textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="내용을 입력해주세요." v-model="content"></textarea>
+        <textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" v-model="content"></textarea>
       </p>
       
       
       <div class="submit">
-        <input value="SEND" id="button-blue" @click="createCommunity"/>
+        <input value="SEND" id="button-blue" @click="updateCommunity"/>
         <div class="ease"></div>
       </div>
     </form>
@@ -41,9 +31,10 @@ export default {
   name: 'CreateCommunity',
   data: function() {
     return {
+      community: Object,
       title: null,
       content: null,
-      tags: null,
+      tags: '',
     }
   },
   methods: {
@@ -55,7 +46,28 @@ export default {
       return config
     },
 
-    createCommunity: function () {
+    getCommunityDetail: function () {
+      axios({
+        method: 'GET',
+        url: `http://127.0.0.1:8000/community/${this.$route.params.communityId}`,
+        headers: this.setToken(), // Authorization: JWT token값
+      })
+        .then(res => {
+          // console.log(res)
+          this.community = res.data
+          this.title = this.community.title
+          this.content = this.community.content
+          for(var v of this.community.tags) {
+            this.tags += ('#'+v.name )
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        
+    },
+
+    updateCommunity: function () {
       const communityItem = {
         title: this.title,
         content : this.content,
@@ -64,8 +76,8 @@ export default {
 
       if (communityItem.title) {
         axios({
-          method: 'post',
-          url: 'http://127.0.0.1:8000/community/',
+          method: 'PUT',
+          url: `http://127.0.0.1:8000/community/${this.community.id}/`,
           data: communityItem,
           headers: this.setToken(),
         })
@@ -81,7 +93,16 @@ export default {
         this.tags = null
       }
     }
-}
+},
+  created: function () {
+    if (localStorage.getItem('jwt')){
+        this.getCommunityDetail()
+    }
+    else{
+      this.$router.push({name: 'Login'})
+    }
+    
+  }
 
 }
 </script>

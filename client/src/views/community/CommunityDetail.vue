@@ -1,42 +1,54 @@
 <template>
 <div>
+  <h1 class="h1font">{{community.id}}번 게시글</h1>
   <div class="blog py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 mx-auto px-0 bg-white shadow-sm rounded itiscard">
-          <div class="col-lg-5 col-md-12 float-md-left blog-thumbnail" style="background-image: url('https://media.vlpt.us/images/easycheaploansuk/post/e7865b20-64df-4117-9b73-d824d60bfe97/christmas.jpg')"></div>
-          <div class="col-lg-7 col-md-12 float-md-left">
-            <div class="p-3 p-sm-5">
+        <div class=" mx-auto px-0 bg-white shadow-sm rounded itiscard">
+          <div class="col-lg-5  float-md-left blog-thumbnail" style="background-image: url('https://media.vlpt.us/images/easycheaploansuk/post/e7865b20-64df-4117-9b73-d824d60bfe97/christmas.jpg')"></div>
+          <div class="col-lg-7  float-md-left">
+            <div class="p-3 p-sm-5 boxbox">
               <div class="mb-4">
-                <h3 class="mb-4">
+                <h1 class="mb-4">
                   {{community.title}}
-                </h3>
+                </h1>
                 <div class="mb-0">
-                <p>{{community.content}}</p>
+                <h4>{{community.content}}</h4>
                 <hr>
-                Time: {{community.updated_at}}
                 <br>
+                글쓴 시간: {{community.updated_at}}
+                <br>
+              
                 글쓴이: {{username}}
                 </div>
                 <br>
                 <div>
-                <span class="text-success" v-for="tag in community.tags" :key="tag.id">#{{tag.name}} </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row1">
-  <span>
-    <input class="balloon" id="state" type="text" placeholder="댓글을 작성하세요." /><label for="state">Comment</label>
-  </span>
-  
+                  <h4>
+                <span class="text-success" v-for="tag in community.tags" :key="tag.id">#{{tag.name}}  </span>
+     </h4>
+<br></div>
+<v-btn tile="tile" color="success" @click="updateCommunity" v-if="flag">
+<v-icon left="left">
+    mdi-pencil
+</v-icon>
+Edit
+</v-btn>
+<v-btn tile="tile" color="error" @click="deleteCommunity" v-if="flag">
+<v-icon left="left">
+    mdi-minus-circle
+</v-icon>
+DELETE
+</v-btn>
 </div>
-   <comment-list :comments="community.comments"></comment-list>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div>
     <create-comment :community ="community.id"></create-comment>
+   <comment-list :comments="community.comments"></comment-list>
+  
   </div>
 </template>
 
@@ -51,6 +63,7 @@ export default {
   data: function () {
     return {
       community: Object,
+      flag: Boolean
     }
   },
   methods: {
@@ -69,18 +82,58 @@ export default {
       })
         .then(res => {
           this.community = res.data
-         
+         console.log('나다',this.community)
           const content = {
             token: this.setToken(),
             userid: this.community.user
           }
           this.$store.dispatch('GetUserName', content)
+          axios({
+            method: 'get',
+            url: `http://127.0.0.1:8000/accounts/check_same_user/${this.community.user}/`,
+            headers: this.setToken()
+          })
+            .then(res => {
+              this.flag = res.data.flag
+              console.log(res)
         })
-        .catch(err => {
-          console.log(err)
+            .catch(err => {
+            console.log(err)
+          })
+        })
+            .catch(err => {
+            console.log(err)
         })
         
     },
+    deleteCommunity: function() {
+      axios({
+        method: 'DELETE',
+        url: `http://127.0.0.1:8000/community/${this.community.id}/`,
+        headers: this.setToken(),
+      })
+        .then(() => {
+          // console.log(res)
+          this.$router.push({name: 'Community'})
+          })
+          .catch(err => {
+            console.log(err)
+          })
+    },
+    updateCommunity: function() {
+      this.$router.push({name: 'UpdateCommunity', params: {communityId: this.community.id}} )
+    },
+    checkSameUser: function() {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/accounts/check_same_user/${this.community.user}/`,
+        headers: this.setToken()
+      })
+        .then(res => {
+          console.log(res)
+        })
+    }
+  
   },
   computed: {
     ...mapState(['username'])
@@ -88,6 +141,7 @@ export default {
   created: function () {
     if (localStorage.getItem('jwt')){
         this.getCommunityDetail()
+        this.checkSameUser()
     }
     else{
       this.$router.push({name: 'Login'})
@@ -98,6 +152,8 @@ export default {
 </script>
 
 <style scoped>
+@charset "UTF-8";
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     @import url('https://media.vlpt.us/images/easycheaploansuk/post/e7865b20-64df-4117-9b73-d824d60bfe97/christmas.jpg');
     .container{
       padding-bottom: 0;
@@ -111,10 +167,10 @@ export default {
     }
     .blog .blog-thumbnail {
         background-size: cover;
-        background-position: center center;
-        height: 350px;
-        /* min-height: 300px; */
-        /* position: absolute */
+        /* background-position: center center; */
+        height: 100%;
+        min-height: 300px;
+
     }
     .blog a:hover {
         opacity: 0.5;
@@ -127,27 +183,33 @@ export default {
 body,
 html {
     overflow-x: hidden;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-weight: 300;
     color: #fff;
     background: #efefef;
 }
+.boxbox {
+  padding: 30px !important;
+}
 .row1 {
     max-width: 800px;
     margin: 0 auto;
+    
     padding: 30px 15px;
     /* background: #032429; */
     position: relative;
     z-index: 1;
     text-align: center;
+    left: -100px;
 
 }
 .row1:before {
+  
 position: absolute;
 content: "";
 display: block;
 top: 0;
-left: -5000px;
+left: -3000px;
 height: 100%;
 width: 15000px;
 z-index: -1;
@@ -159,11 +221,11 @@ padding: 40px 30px;
 .row1:nth-child(10),
 .row1:nth-child(2),
 .row1:nth-child(8) {
-/* background: #134a46; */
+background: #134a46;
 }
 .row1:nth-child(3),
 .row1:nth-child(7) {
-/* background: #377d6a; */
+background: #377d6a;
 }
 .row1:nth-child(4),
 .row1:nth-child(6) {
@@ -171,6 +233,7 @@ background: #7ab893;
 }
 .row1:nth-child(5) {
 background: #b2e3af;
+
 }
 .row1 span {
 width: 50%;
@@ -179,11 +242,16 @@ display: inline-block;
 margin: 30px 10px;
 }
 
+.h1font {
+  color: white;
+}
 .state {
   color: red;
+  
 }
 
 .balloon {
+
     display: inline-block;
     width: 600px;
     padding: 10px 0 10px 15px;

@@ -7,7 +7,7 @@ class Tag(models.Model):
         return self.name
 
 class Community(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, related_name='user_community')
     tags = models.ManyToManyField(Tag, related_name="communities", blank=True)
     title = models.CharField(max_length=10)
     content = models.TextField()

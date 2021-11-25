@@ -10,6 +10,7 @@ import MyPageList from '@/views/accounts/MyPageList'
 import Community from '@/views/community/Community'
 import CommunityDetail from '@/views/community/CommunityDetail'
 import CreateCommunity from '@/components/CreateCommunity'
+import UpdateCommunity from '@/components/UpdateCommunity'
 import Test from '@/views/Test'
 import Test2 from '@/views/movies/test'
 
@@ -21,12 +22,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-
-  {
-    path: '/test',
-    name: 'Test',
-    component: Test
   },
 
   {
@@ -78,11 +73,14 @@ const routes = [
     component: CreateCommunity,
 
   },
+
   {
-    path:'/movies/test',
-    name: 'Test2',
-    component: Test2,
-  }
+    path:'/community/update/:communityId',
+    name: 'UpdateCommunity',
+    component: UpdateCommunity,
+
+  },
+
   
 ]
 
