@@ -9,12 +9,17 @@ class TagSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CommunityListSerializer(serializers.ModelSerializer):
+    userName = serializers.SerializerMethodField()
+    def get_userName(self,obj):
+        return obj.user.username
+
     class Meta:
         model = Community
-        fields = ('id', 'title','user')
+        fields = ('id', 'title','user','userName')
 
 
 class CommunitySerializer(serializers.ModelSerializer):
+
     class TagSerializer(serializers.ModelSerializer):
         class Meta:
             model = Tag
@@ -27,36 +32,24 @@ class CommunitySerializer(serializers.ModelSerializer):
             model = Comment
             fields = '__all__'
     comments = CommentSerializer(many=True, read_only=True)
-
+    userName = serializers.SerializerMethodField()
+    def get_userName(self,obj):
+         return obj.user.username
     class Meta:
         model = Community
-        fields = ('id', 'title', 'content', 'tags', 'created_at','updated_at', 'comments', 'user')
+        fields = ('id', 'title', 'content', 'tags', 'created_at','updated_at', 'comments', 'user', 'userName')
 
-    # def get_validation_exclusions(self, *args, **kwargs):
-    #     exclusions = super(CommunitySerializer, self).get_validation_exclusions()
-
-    #     return exclusions + ['user']
-
-    # def create(self, validated_data):
-    #     tags = validated_data.pop('tags_id')
-    #     communities = Community.objects.create(**validated_data)
-    #     for tg in tags:
-    #         communities.tags.add(tg)
-    #     return communities
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    # class UserSerializer(serializers.ModelSerializer):
-    #     class Meta:
-    #         model = User
-    #         fields = ('id','username')
-    # user = UserSerializer(read_only=True)
     class CommunitySerializer(serializers.ModelSerializer):
         class Meta:
             model = Community
             fields = '__all__'
     community = CommunitySerializer(read_only=True)
-
+    userName = serializers.SerializerMethodField()
+    def get_userName(self,obj):
+         return obj.user.username
     class Meta:
         model = Comment
         fields = '__all__'

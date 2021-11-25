@@ -2,7 +2,7 @@
   <div>
  <div class="row1">
   <span>
-    <input @keypress="createComment" class="balloon" id="state" type="text" placeholder="댓글을 작성 후 Enter를 눌러주세요." v-model="title"  /><label for="state" >Comment</label>
+    <input @keyup.enter="createComment" class="balloon" id="state" type="text" placeholder="댓글을 작성 후 Enter를 눌러주세요." v-model="title"  /><label for="state" >Comment</label>
   </span>
   <!-- <b-button @click="createComment">+</b-button> -->
 </div>

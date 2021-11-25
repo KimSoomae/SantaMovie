@@ -4,7 +4,7 @@
   <tr @click="goToCommunityDetail">
     <td>{{community.id}} </td>
         <td>{{community.title}} </td>
-        <td>{{username}} </td>
+        <td>{{community.userName}} </td>
         
 
   </tr>
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 export default {
   name: 'CommnunityItem',
   props: {
@@ -22,6 +21,7 @@ export default {
       type: Object
     }
   },
+
   methods: {
     setToken: function() {
       const token = localStorage.getItem('jwt')
@@ -33,26 +33,7 @@ export default {
     goToCommunityDetail: function() {
       this.$router.push({name: 'CommunityDetail', params: {communityId: this.community.id}})
     },
-    getUserName: function() {
-      const content = {
-            token: this.setToken(),
-            userid: this.community.user
-          }
-          this.$store.dispatch('GetUserName', content)
-    }
-  },
-  created: function () {
-    // console.log(this.community)
-    if (localStorage.getItem('jwt')){
-        this.getUserName()
-    }
-    else{
-      this.$router.push({name: 'Login'})
-    }
-    
-  },
-  computed: {
-    ...mapState(['username'])
+
   },
     
   }
