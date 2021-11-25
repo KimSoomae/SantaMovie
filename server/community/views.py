@@ -11,7 +11,7 @@ from .serializers import CommunityListSerializer, CommunitySerializer, CommentSe
 @api_view(['GET', 'POST'])
 def community_list_create(request):
     if request.method == 'GET':
-        communitys = Community.objects.all()
+        communitys = Community.objects.order_by('-pk')
         serializer = CommunityListSerializer(communitys, many=True)
         return Response(serializer.data)
     else:

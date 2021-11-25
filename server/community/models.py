@@ -9,7 +9,7 @@ class Tag(models.Model):
 class Community(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, related_name='user_community')
     tags = models.ManyToManyField(Tag, related_name="communities", blank=True)
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -20,7 +20,7 @@ class Community(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
     community = models.ForeignKey(Community, on_delete=models.CASCADE, related_name='comments', blank=True)
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
