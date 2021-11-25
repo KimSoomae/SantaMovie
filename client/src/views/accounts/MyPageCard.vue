@@ -30,5 +30,7 @@ export default {
 </script>
 
 <style>
-
+*{
+  font-family: 'Gowun Dodum', sans-serif;
+}
 </style>

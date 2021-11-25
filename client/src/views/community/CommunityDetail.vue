@@ -172,7 +172,8 @@ export default {
     }
    
 * {
-    box-sizing: border-box;
+  font-family: 'Gowun Dodum', sans-serif;
+  box-sizing: border-box;
 }
 body,
 html {

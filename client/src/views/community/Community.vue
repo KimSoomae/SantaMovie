@@ -104,9 +104,12 @@ export default {
 </script>
 
 <style scoped>
+
     @charset "UTF-8";
     @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-
+    *{
+  font-family: 'Gowun Dodum', sans-serif;
+}
     body {
         font-family: 'Open Sans', sans-serif;
         font-weight: 300;
