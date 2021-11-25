@@ -1,12 +1,26 @@
 <template>
-  <div>
-    {{comment.id}}
+  <div class="comment">
+    {{comment.id}}.
     {{comment.title}}
-    {{username}}
+  
+    <span class="smallusername">
+    by {{username}}
+    </span>
     <!-- {{comment.created_at}}
     {{comment.updated_at}} -->
     
-    <b-button @click="deleteComment">삭제</b-button>
+    <!-- <b-button @click="deleteComment">삭제</b-button> -->
+    <v-btn
+              color="error"
+              fab
+              x-small
+              dark
+              @click="deleteComment"
+              style="text-align:center;"
+              class="btnbtn"
+            >
+              <v-icon>X</v-icon>
+            </v-btn>
     <!-- modal -->
     
   </div>
@@ -69,6 +83,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.smallusername {
+    font-size: 70% ;
+  }
+  .comment {
+    color: #ccc7c7;
+    font-size: 150%;
+    margin-bottom: 10px;
+    
+  }
+
+  
 
 </style>

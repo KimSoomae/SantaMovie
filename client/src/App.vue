@@ -10,8 +10,7 @@
         <router-link @click.native="logout" to="#">Logout</router-link> |
         <router-link :to="{ name: 'MyPageList' }">MyPage</router-link> |
         <router-link :to="{ name: 'Community' }">Community</router-link> |
-        <router-link :to="{ name: 'Test' }">Test</router-link> |
-        <router-link :to="{ name: 'Test2' }">Testtest</router-link> 
+   
       </span>
       <span v-else>
         <router-link :to="{ name: 'Signup' }">Signup</router-link> |
@@ -115,7 +114,7 @@ export default {
 };
 
 </script>
-<style scoped>
+<style >
   #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -123,7 +122,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   background-color: rgb(66, 47, 30);
-}
+} 
 
 #nav {
   padding: 30px;

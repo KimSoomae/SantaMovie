@@ -62,13 +62,13 @@ export default {
     },
 
     moveToChristmasMovieDetail: function() {
-      this.$router.push({ name: 'ChristmasMovieDetail', params: {movichristmasmovieIdeId: this.christmasmovie.id}})
+      this.$router.push({ name: 'ChristmasMovieDetail', params: {christmasmovieId: this.christmasmovie.id}})
 
     },
     likeMovie: function() {
       axios({
         method: 'POST',
-        url: `http://127.0.0.1:8000/movies/${this.christmasmovie.id}/like/`,
+        url: `http://127.0.0.1:8000/movies/${this.christmasmovie.id}/christmaslike/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -83,7 +83,7 @@ export default {
     getLikes: function() {
       axios({
         method: 'GET',
-        url: `http://127.0.0.1:8000/movies/${this.christmasmovie.id}/like/`,
+        url: `http://127.0.0.1:8000/movies/${this.christmasmovie.id}/christmaslike/`,
         headers: this.setToken(),
       })
         .then((res) => {

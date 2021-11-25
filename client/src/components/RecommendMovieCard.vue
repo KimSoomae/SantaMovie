@@ -107,7 +107,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 @import url('https://fonts.googleapis.com/css?family=Cardo:400i|Rubik:400,700&display=swap');
 :root {
   --d: 700ms;
@@ -131,7 +132,7 @@ body {
   display: grid;
   grid-gap: 1rem;
   padding: 1rem;
-  max-width: 1024px;
+  max-width: 2024px;
   margin: 0 auto;
   font-family: var(--font-sans);
 }
@@ -149,8 +150,7 @@ body {
 
 .card {
 	/*div에 이미지 꽉차게*/ 
-	background-size: cover ;
-  background-position: center;
+	background-size: cover;
   position: relative;
   display: flex;
   align-items: flex-end;

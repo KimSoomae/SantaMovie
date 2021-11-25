@@ -12,5 +12,6 @@ urlpatterns = [
     path('christmasmovies/<int:christmasmovie_pk>/', views.christmasmovie_detail),
     path('christmasmovies/<int:christmasmovie_pk>/christmasreviews/', views.christmasmovie_review_create),
     path('christmasreviews/<int:christmasreview_pk>/', views.christmasmovie_review_update_delete),
+    path('<int:christmasmovie_pk>/christmaslike/', views.christmaslike),
 
 ]

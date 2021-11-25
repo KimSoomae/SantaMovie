@@ -89,6 +89,7 @@
                                             <div class="disclaimer" style="margin-left: 300px;">
                                                 
                                                 <h3 style="color:white;">한줄평</h3>
+                                                <br>
                                                 <review-list :reviews="movie.movie_review" :movieid ="movie.id" style="color:white;"></review-list>
                                                 <p v-for="actor in movie.movie_actor" :key='actor.id'>{{actor.name}}</p>
                                                 
@@ -446,7 +447,7 @@ imgUrl: function () {
                                             }
                                         </script>
 
-                                        <style scoped="scoped">
+                                        <style scoped>
                                             * {
                                                 margin: 0;
                                                 padding: 0;

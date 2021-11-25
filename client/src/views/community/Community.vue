@@ -1,7 +1,11 @@
 <template>
   <div>
-    <h1>커뮤니티</h1>
-    <b-form-input type="text" v-model="search"></b-form-input> <b-button @click="searchTag">tag로 보기</b-button>
+    <h1>Community</h1>
+    <div class="search-wrapper cf">
+        <input type="text" placeholder="태그를 검색하세요." required="" v-model="search">
+        <button @click="searchTag">Search</button>
+    </div>
+ <b-button variant="success" @click="createCommunity" class="writebtn">글쓰기</b-button>
 <table class="container">
   <thead>
       <tr>
@@ -26,7 +30,7 @@
 
 </tbody>
 </table>
-    <b-button @click="createCommunity">글쓰기</b-button>
+   
 
   </div>
 </template>
@@ -96,7 +100,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     @charset "UTF-8";
     @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
@@ -113,7 +117,7 @@ export default {
         font-weight: 300;
         line-height: 1em;
         text-align: center;
-        color: #fa4d4d ;
+        color: #ccc7c7 ;
     }
 
     h2 {
@@ -224,6 +228,120 @@ export default {
             display: none;
         }
     }
+
+    /*  */
+    .cf:before, .cf:after{
+    content:"";
+    display:table;
+}
+ 
+.cf:after{
+    clear:both;
+}
+ 
+.cf{
+    zoom:1;
+}    
+
+ /* Form wrapper styling */
+.search-wrapper {
+width: 300px;
+margin: 25px auto 20px auto;
+box-shadow: 0 1px 1px rgba(0, 0, 0, .4) inset, 0 1px 0 rgba(255, 255, 255, .2);
+}
+ 
+/* Form text input */
+ 
+.search-wrapper input {
+width: 220px;
+height: 40px;
+padding: 10px 5px;
+float: left;
+font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+border: 0;
+background: #EEE;
+border-radius: 3px 0 0 3px;
+}
+ 
+.search-wrapper input:focus {
+    outline: 0;
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+}
+ 
+.search-wrapper input::-webkit-input-placeholder {
+   color: #999;
+   font-weight: normal;
+   font-style: italic;
+}
+ 
+.search-wrapper input:-moz-placeholder {
+    color: #999;
+    font-weight: normal;
+    font-style: italic;
+}
+ 
+.search-wrapper input:-ms-input-placeholder {
+    color: #999;
+    font-weight: normal;
+    font-style: italic;
+}    
+ 
+/* Form submit button */
+.search-wrapper button {
+overflow: visible;
+position: relative;
+float: right;
+border: 0;
+padding: 0;
+cursor: pointer;
+height: 40px;
+width: 72px;
+font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+color: white;
+text-transform: uppercase;
+background: #D83C3C;
+border-radius: 0 3px 3px 0;
+text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
+}
+   
+.search-wrapper button:hover{     
+    background: #e54040;
+}   
+   
+.search-wrapper button:active,
+.search-wrapper button:focus{   
+    background: #c42f2f;
+    outline: 0;   
+}
+ 
+.search-wrapper button:before { /* left arrow */
+    content: '';
+    position: absolute;
+    border-width: 8px 8px 8px 0;
+    border-style: solid solid solid none;
+    border-color: transparent #d83c3c transparent;
+    top: 12px;
+    left: -6px;
+}
+ 
+.search-wrapper button:hover:before{
+    border-right-color: #e54040;
+}
+ 
+.search-wrapper button:focus:before,
+.search-wrapper button:active:before{
+        border-right-color: #c42f2f;
+}      
+ 
+.search-wrapper button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
+    border: 0;
+    padding: 0;
+}    
+
+.writebtn {
+  margin-bottom: 20px;
+}
 </style>
 
 

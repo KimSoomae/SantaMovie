@@ -47,6 +47,14 @@ def get_movie_pick(request):
         
         return Response(serializer.data)
 
+@api_view(['GET'])
+def get_like_movie(request):
+    if request.method == 'GET':
+        user = get_object_or_404(get_user_model(), pk=request.user.id)
+        likemovies = user.like_movies.all()
+        serializer = MovieSerializer(likemovies, many=True)
+        return Response(serializer.data)
+
 @api_view(['POST'])
 def save_movie(request, movie_id):
     mymovie = get_object_or_404(PickMovie, pk=movie_id)
@@ -99,3 +107,15 @@ def get_user(request,user_id):
     user = get_object_or_404(get_user_model(), pk=user_id)
     serializer = UserSerializer(user)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def check_same_user(request, user_id):
+    if (user_id == request.user.id):
+        content = {
+            'flag': True
+        }
+    else:
+        content = {
+            'flag': False
+        }
+    return Response(content)

@@ -1,8 +1,18 @@
 <template>
   <div>
-    {{christmasreview.title}} -- {{christmasreview.rank}}
-    <button>수정</button>
-    <button @click="deleteChristmasReview">삭제</button>
+    {{christmasreview.title}} ({{christmasreview.rank}}점)
+        <v-btn
+              color="error"
+              fab
+              x-small
+              dark
+              @click="deleteChristmasReview"
+              style="text-align:center;"
+            >
+              <v-icon>X</v-icon>
+            </v-btn>
+    <!-- </div> -->
+    <!-- <button @click="deleteReview">삭제</button> -->
     <!-- modal -->
     
   </div>
