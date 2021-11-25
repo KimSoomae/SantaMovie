@@ -41,7 +41,7 @@
                                     d="M51 153c-28.05 0-51 22.95-51 51s22.95 51 51 51 51-22.95 51-51-22.95-51-51-51zm306 0c-28.05 0-51 22.95-51 51s22.95 51 51 51 51-22.95 51-51-22.95-51-51-51zm-153 0c-28.05 0-51 22.95-51 51s22.95 51 51 51 51-22.95 51-51-22.95-51-51-51z"/></svg>
 
                             </div>
-                            <div class="movie">
+                            <div class="movie" v-bind:style="{backgroundImage: 'url(' + imgUrl + ')'} ">
                                 <!-- <iframe :src="videoUrl" frameborder="0"></iframe> -->
                                 <svg
                                     class="trailerPlayButton"

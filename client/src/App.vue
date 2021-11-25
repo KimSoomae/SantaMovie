@@ -3,8 +3,15 @@
   <v-app>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <Snow/>
+   
     <div id="app">
     <div id="nav">
+     
+      <router-link to="/">
+        <v-img src="@/assets/SantaMovieLogo.png" :to="{name: 'Home' }" style="display: inline-block; float:left; margin-top:-40px;width: 100px; height: 100px; vertical-align: middle; " >
+        </v-img>
+      </router-link>
+      
       <span v-if="isLogin">
         <router-link to="/">Home</router-link> |
         <router-link @click.native="logout" to="#">Logout</router-link> |
@@ -16,10 +23,15 @@
         <router-link :to="{ name: 'Signup' }">Signup</router-link> |
         <router-link :to="{ name: 'Login' }">Login</router-link> 
       </span>
+    <audio autoplay controls loop>
+      <source src="@/audio/Mariah Carey-02-All I Want for Christmas Is You-Merry Christmas.mp3" type="audio/mpeg"> 브라우저가 audio 태그를 지원하지 않을 때 표시되는 문장
+    </audio>
     </div>
     <router-view @login="isLogin = true"/>
+    
   </div>
   </v-app>
+
   <!-- <v-app>
     
     <v-app-bar
@@ -115,6 +127,12 @@ export default {
 
 </script>
 <style >
+audio {
+  color: red;
+  display: inline;
+  float: right;
+  margin: -15px auto;
+}
   #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

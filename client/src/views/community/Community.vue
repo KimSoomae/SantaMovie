@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>Community</h1>
+    <div style="margin-left: -500px">
+        <h1>Community</h1>
+    </div>
+    
     <div class="search-wrapper cf">
         <input type="text" placeholder="태그를 검색하세요." required="" v-model="search">
         <button @click="searchTag">Search</button>

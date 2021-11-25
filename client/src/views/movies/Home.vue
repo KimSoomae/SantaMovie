@@ -1,14 +1,10 @@
 <template>
   <div>
-    <!-- <v-row justify="space-around">
-      <v-icon @click="model--">
-        mdi-minus
-      </v-icon>
-      {{ model }}
-      <v-icon @click="model++">
-        mdi-plus
-      </v-icon>
-    </v-row> -->
+    
+    
+    <!-- <audio autoplay controls loop>
+      <source src="@/audio/Mariah Carey-02-All I Want for Christmas Is You-Merry Christmas.mp3" type="audio/mpeg"> 브라우저가 audio 태그를 지원하지 않을 때 표시되는 문장
+    </audio> -->
     <v-carousel v-model="model">
       <v-carousel-item
         v-for="(color, i) in colors"
