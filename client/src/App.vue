@@ -13,15 +13,19 @@
       </router-link>
       
       <span v-if="isLogin">
-        <router-link to="/">Home</router-link> |
-        <router-link @click.native="logout" to="#">Logout</router-link> |
-        <router-link :to="{ name: 'MyPageList' }">MyPage</router-link> |
-        <router-link :to="{ name: 'Community' }">Community</router-link> |
+        <span style="margin-left: 200px;">
+          <router-link to="/">Home</router-link> |
+          <router-link @click.native="logout" to="#">Logout</router-link> |
+          <router-link :to="{ name: 'MyPageList' }">MyPage</router-link> |
+          <router-link :to="{ name: 'Community' }">Community</router-link> |
+        </span>
    
       </span>
       <span v-else>
-        <router-link :to="{ name: 'Signup' }">Signup</router-link> |
-        <router-link :to="{ name: 'Login' }">Login</router-link> 
+        <span style="margin-left: 200px;">
+          <router-link :to="{ name: 'Signup' }">Signup</router-link> |
+          <router-link :to="{ name: 'Login' }">Login</router-link> 
+        </span>
       </span>
     <audio autoplay controls loop>
       <source src="@/audio/Mariah Carey-02-All I Want for Christmas Is You-Merry Christmas.mp3" type="audio/mpeg"> 브라우저가 audio 태그를 지원하지 않을 때 표시되는 문장
