@@ -1,7 +1,7 @@
 <template>
   
   <v-app>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <Snow/>
     <div id="app">
     <div id="nav">
