@@ -22,10 +22,9 @@ class UserSerializer(serializers.ModelSerializer):
             fields = '__all__'
 
     moviepicks = MoviePickSerializer(read_only=True, many=True, allow_null=True)
-    
     class Meta: 
         model = get_user_model()
-        fields = ('username', 'password', 'moviepicks')
+        fields = ('username', 'password', 'moviepicks', 'first_genre', 'second_genre')
 
     # def create(self, validated_data):
     #     return get_user_model(**validated_data)
