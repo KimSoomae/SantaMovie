@@ -11,8 +11,6 @@ import Community from '@/views/community/Community'
 import CommunityDetail from '@/views/community/CommunityDetail'
 import CreateCommunity from '@/components/CreateCommunity'
 import UpdateCommunity from '@/components/UpdateCommunity'
-import Test from '@/views/Test'
-import Test2 from '@/views/movies/test'
 
 
 Vue.use(VueRouter)
