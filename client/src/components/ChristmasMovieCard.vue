@@ -4,9 +4,15 @@
         <div class="content">
             <!-- <h2 class="title">{{movie.title}}</h2> -->
 						<p class="title">{{christmasmovie.title}}</p>
-            <span class="genre" v-for="genre in christmasmovie.genre_ids" :key="genre.id">
-									{{genre.name}},
-						</span>
+            <br>
+            <span class="genre" v-for="(genre, idx) in christmasmovie.genre_ids" :key="genre.id">
+                <span v-if="idx< 3" class="genre" >  
+                  {{genre.name}},
+                </span>
+                <span v-else>
+
+                </span>
+            </span>
 						<br>
 						<p class="overview">{{christmasmovie.overview}}</p>
             <span class="genre">
@@ -24,6 +30,7 @@
         dark
         color="indigo"
 				@click="moveToChristmasMovieDetail"
+        style="margin-top:-10px;"
       >
         <v-icon dark style="font-size:1rem;">
           Detail
@@ -232,7 +239,7 @@ body {
 	line-height: 1.2em;
 }
 .content > p.title{
-	font-size:2rem;
+	font-size:1rem;
 	height:15px;
 }
 .content > p.des{
@@ -241,6 +248,7 @@ body {
 }
 .content > span.genre{
 	text-align: center;
+  margin-bottom: 400px !important;
 	width: 50px;
 	font-size: 1rem;
 	height: 10px;
@@ -251,7 +259,8 @@ body {
   margin-top: 1rem;
 }
 .title {
-  font-size: 0.6rem;
+  margin-top: -10px;
+  font-size: 0.3rem;
   font-weight: bold;
   line-height: 1.2;
 }

@@ -4,8 +4,12 @@
         <div class="content">
             <!-- <h2 class="title">{{movie.title}}</h2> -->
 						<p class="title">{{movie.title}}</p>
-            <span class="genre" v-for="genre in movie.genre_ids" :key="genre.id">
-									{{genre.name}},
+            <span class="genre" v-for="(genre, idx) in movie.genre_ids" :key="genre.id">
+									<span v-if="idx< 3" class="genre" >  
+                  {{genre.name}},
+                </span>
+                <span v-else>
+                </span>
 						</span>
 						<br>
 						<p class="overview">{{movie.overview}}</p>
@@ -241,6 +245,7 @@ body {
 }
 .content > span.genre{
 	text-align: center;
+	margin-bottom: 500px !important;
 	width: 50px;
 	font-size: 1rem;
 	height: 10px;

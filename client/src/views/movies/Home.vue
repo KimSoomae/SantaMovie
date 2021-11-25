@@ -5,7 +5,7 @@
     <!-- <audio autoplay controls loop>
       <source src="@/audio/Mariah Carey-02-All I Want for Christmas Is You-Merry Christmas.mp3" type="audio/mpeg"> 브라우저가 audio 태그를 지원하지 않을 때 표시되는 문장
     </audio> -->
-    <v-carousel v-model="model">
+    <v-carousel v-model="model3">
       <v-carousel-item
         v-for="(color, i) in colors3"
         :key="color"
@@ -24,7 +24,8 @@
             
           >
             <div class="text-h4" style="color: white; margin-top:20px;">
-            크리스마스 추천 영화
+            <div class="movietitle"> 크리스마스 추천 영화 </div>
+            
             
               <div class='container' style="display:flex; flex-flow: row wrap; width: 100%;  margin:0 auto; margin-left:-20px">
                 <main class="page-content">
@@ -62,7 +63,7 @@
             
           >
             <div class="text-h4" style="color: white; margin-top:20px;">
-            취향저격 추천 영화
+            <div class="movietitle">취향저격 추천 영화</div>
             
               <div class='container' style="display:flex; flex-flow: row wrap; width: 100%;  margin:0 auto; margin-left:-20px">
                 <main class="page-content">
@@ -98,7 +99,7 @@
             
           >
             <div class="text-h4" style="color: white; margin-top:0px;">
-            Box Office 추천 영화
+            <div class="movietitle">Box Office 추천 영화</div>
             
               <div class='container' style="display:flex; flex-flow: row wrap; width: 100%;  margin:0 auto; margin-left:-20px">
                 <main class="page-content">
@@ -130,6 +131,7 @@ export default {
       return {
         model: 0,
         model2: 0,
+        model3: 0,
         recommendmovies: Array,
         colors: [
           'rgb(131, 18, 22)',
@@ -224,7 +226,9 @@ export default {
 
 <style scoped>
 
-@import url('https://fonts.googleapis.com/css?family=Cardo:400i|Rubik:400,700&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Cardo:400i|Rubik:400,700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Poor+Story&display=swap');
 :root {
   --d: 700ms;
   --e: cubic-bezier(0.19, 1, 0.22, 1);
@@ -233,6 +237,10 @@ export default {
 }
 * {
   box-sizing: border-box;
+  font-family: 'Poor Story', cursive;
+}
+.movietitle{
+  font-family: 'Do Hyeon', sans-serif !important;
 }
 html, body { 
   height: 100%;
@@ -251,7 +259,7 @@ body {
   /* padding: 1rem; */
   max-width: 2024px;
   margin: 100 auto;
-  font-family: var(--font-sans);
+  /* font-family: var(--font-sans); */
 }
 @media (min-width: 600px) {
   .page-content {
@@ -371,7 +379,7 @@ body {
   line-height: 1.2;
 }
 .copy {
-  font-family: var(--font-serif);
+  /* font-family: var(--font-serif); */
   font-size: 1.125rem;
   font-style: italic;
   line-height: 1.35;
