@@ -252,6 +252,88 @@ def movie_list(request):
 
 ### 6. 기타 느낀 점
 
+[수민]
+
+1주일만에 이런 결과물이 나올 수 있는게 너무 신기하고 뿌듯했다. 돌이켜보면 힘든 때도 있었지만 페어와 즐겁게 함께하니 웃음으로 극복할 수 있었던 것 같다. 면접이 일정이 겹치는 바람에 저녁이후 시간대에 시간을 쏟지 못해 재현이가 훨씬 고생한 것 같아 아쉽고 미안했다. 결과적으로 프로젝트 최우수상도 받고 전체적으로 1학기를 복습도 하면서 너무 뿌듯한 프로젝트였다~! 
+
+### 7. 결과사진
+
+
+
+**Home화면** - 크리스마스 추천 영화, 취향저격 추천 영화, 박스오피스 추천 영화 
+
+![](./images/f_home.png)
+
+
+
+**영화 상세 페이지**
+
+![](./images/f_moviedetail.png)
+
+
+
+**영화 상세 페이지 - 줄거리 더보기**
+
+![](./images/f_moviedetail2.png)
+
+
+
+**영화 상세 페이지 - 예고편 보기**
+
+![](./images/f_moviedetail2.png)
+
+
+
+**커뮤니티 페이지**
+
+![](./images/f_community.png)
+
+
+
+**커뮤니티 페이지 - 태그로 검색**
+
+![](./images/f_community_tag.png)
+
+
+
+**커뮤니티 페이지 - 글 작성**
+
+![](./images/f_community_write.png)
+
+
+
+**커뮤니티 페이지 - 게시글 상세보기**
+
+![](./images/f_community_detail.png)
+
+
+
+**마이 페이지**
+
+![](./images/f_mypage.png)
+
+
+
+**회원가입**
+
+![](./images/f_signup.png)
+
+
+
+**회원가입 - 영화 취향 고르기**
+
+![](./images/f_signup2.png)
+
+
+
+**로그인**
+
+![](./images/f_login.png)
+
+
+
+### 8. 회의과정
+
 
 
 >  ## 11/17(수)
@@ -709,3 +791,156 @@ def get_recommend_movie(request):
 기본 기능이 어느정도 가춰졌다.. 그치만 꾸미는게 너무 걱정이다,, 그러나 해낼 수 있다!!!!!!
 
 내일은 조금 더 화이팅~~
+
+
+
+### 새롭게 알게된 부분
+
+>  텍스트가 긴 경우 ...기호 넣는 법
+
+```css
+text-overflow: ellipsis;
+```
+
+세가지 조건 필요
+
+i. width 또는 height가 고정적일 것
+ii. overflow: hidden; 을 사용해 영역을 감출 것
+iii. 아래줄로 내려가는 것을 막기위해 white-space: nowrap 등이 필요
+
++display 속성이 블럭 형태인 경우에만 적용 됨
+
+```css
+body span {
+  display: block;  // inline-block으로 설정 필요
+}
+```
+
+적용예시
+
+```css
+div p {
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ width: 100px;
+ height: 20px;
+}
+```
+
+
+
+> 이미지 사이즈 맞추기
+
+```css
+.image {
+  background-image: url("./images/nana.jpg");
+  background-size: cover; /* 비율 맞춰서 넣으려면 contain */
+  background-repeat: no-repeat; /* div보다 이미지 사이즈 작으면 이미지 반복되는거 방지*/
+  background-position: center; /* 가운데 정렬 */
+}
+```
+
+서버에서 이미지 주소 전달하는 경우
+
+```html
+<div style="background-image: url('./images/nana.gif')"></div>
+```
+
+| **contain**                                     | 이미지의 가로세로 비율을 유지하면서, 이미지가 잘리지 않을 때까지만 채웁니다. |
+| ----------------------------------------------- | ------------------------------------------------------------ |
+| **cover**                                       | 이미지의 가로세로 비율을 유지하면서, 이미지가 잘리더라도 주어진 크기를 꽉 채웁니다. |
+| **사이즈 직접 입력** **(100%, 200px, 50em 등)** | 비율에 무관하게 입력한 값에 맞춰 사이즈를 조절합니다. 하나만 입력하면 가로값만, 쉼표 없이 두 개를 입력하면 가로값과 세로값을 동시에 설정합니다. |
+
+
+
+> 오디오 삽입
+
+```html
+<audio autoplay controls loop>
+      <source src="@/audio/song_name.mp3" type="audio/mpeg"> default
+    </audio>
+```
+
+autoplay: 자동 재생
+
+- - 예제: <audio autoplay>
+
+controls: 음악 플레이어 UI 화면에 표시
+
+- - 예제: <audio controls >
+
+loop: 무한 반복
+
+- - 예제: <audio loop > 
+
+
+
+> vuetify에서 v-img에 :to로 링크 걸기
+
+
+
+```html
+<router-link to="/">
+        <v-img src="@/assets/SantaMovieLogo.png" :to="{name: 'Home' }" style="display: inline-block; float:left; margin-top:-40px;width: 100px; height: 100px; vertical-align: middle; " >
+        </v-img>
+</router-link>
+```
+
+
+
+> vuejs에서 태그 및 컴포넌트 요소에 backgroundImage 인라인 스타일을 사용하여 백그라운드 이미지 추가
+
+```html
+<div class="sidebar__bg"
+        v-bind:style="{ backgroundImage: 'url(' + this.imgUrl + ')' }"></div>
+```
+
+
+
+> float:left 대체
+
+display: inline, inline-block
+
+float:left가 들어간 선택자는 text-align: center가 적용되지 않음.
+
+-> 상위 선택자에 text-align:center을 넣고, 하위 선택자 중, 좌측 정렬 되어야 할 선택자에 display:inline 적용
+
+우측 정렬 되어야 할 선택자에 display: inline-block 적용
+
+
+
+> vueJs에 JavaScript 직접 사용하고 싶을 때
+
+mounted: function() {
+
+ 여기다가 넣으면 된다.
+
+}
+
+
+
+> jquery 쓰기
+
+```bash
+npm install jquery
+```
+
+```js
+import $ from 'jquery'
+```
+
+
+
+> v-for과 객체
+
+
+
+```html
+<div v-for="(value, name, idx) in object">
+  {{idx}}. {{name}}: {{value}}
+</div>
+```
+
+
+

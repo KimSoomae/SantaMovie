@@ -32,7 +32,7 @@
     </audio>
     </div>
     <router-view @login="isLogin = true"/>
-    <v-footer padless dark>
+    <v-footer v-if="isLogin" padless dark>
     <v-col
       class="py-2 white--text text-center"
       cols="12"

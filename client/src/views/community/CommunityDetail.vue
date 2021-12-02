@@ -12,7 +12,7 @@
                 <h1 class="mb-4">
                   {{community.title}}
                 </h1>
-                <div class="mb-0">
+                <div  style="white-space:pre-wrap;" class="mb-0">
                 <h4>{{community.content}}</h4>
                 <hr>
                 <br>

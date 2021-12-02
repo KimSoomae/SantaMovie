@@ -97,17 +97,20 @@
                                                 <div class="designerSocial">
                                                     <a href="" target="_blank">
                                                         <img
-                                                            src="https://cdn-icons.flaticon.com/png/512/2331/premium/2331397.png?token=exp=1637865549~hmac=44377e409a5de00dcf1a530468b9d80b"
-                                                            alt="Designer's Website"></a>
-                                                        <a href="" target="_blank">
-                                                            <img
-                                                                src="https://cdn-icons-png.flaticon.com/512/3792/3792011.png"
-                                                                alt="Designer's Dribble"></a>
-                                                            <a href="" target="_blank">
-                                                                <img
-                                                            src="https://cdn-icons.flaticon.com/png/512/1327/premium/1327778.png?token=exp=1637865549~hmac=e8849c5d63913c941d8b53f0b5ae0603"
+                                                            src="https://cdn-icons.flaticon.com/png/512/2466/premium/2466534.png?token=exp=1638455664~hmac=7aa901294bb84118eaad6aaa5429c9b4"
                                                             alt="Designer's Website">
-                                                            </a>
+                                                    </a>
+                                                    <a href="" target="_blank">
+                                                        <img
+                                                          src="https://cdn-icons-png.flaticon.com/512/3792/3792011.png"
+                                                          alt="Designer's Dribble">
+                                                    </a>
+                                                    <a href="" target="_blank">
+                                                                 <!-- src="https://cdn-icons.flaticon.com/png/512/1327/premium/1327778.png?token=exp=1637865549~hmac=e8849c5d63913c941d8b53f0b5ae0603"-->
+                                                        <img
+                                                            src="https://cdn-icons.flaticon.com/png/512/1327/premium/1327778.png?token=exp=1638455402~hmac=3800cbcd63fa7a24480693c788d55992"
+                                                            alt="Designer's Website">
+                                                    </a>
                                                         </div>
                                                     </div>
 
